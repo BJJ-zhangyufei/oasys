@@ -18,7 +18,7 @@ public class UserController {
     UserService userService;
 
     //配合分页设置，获取所有的角色信息
-    @RequestMapping(value = "/UserByPage", params = {  "limit","page"  }, method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
+    @RequestMapping(value = "/userByPage", params = {  "limit","page"  }, method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
     @ResponseBody
     public String getUserByPage(@RequestParam int limit,
                                    @RequestParam int page) throws Exception {
