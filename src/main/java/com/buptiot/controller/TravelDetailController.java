@@ -89,9 +89,9 @@ public class TravelDetailController {
     //增加预案详细信息
     @RequestMapping(value = "/travelDetail", method = RequestMethod.POST, produces = "text/html;charset=UTF-8")
     @ResponseBody
-    public String createTravelDetail(@RequestBody String workInfo) throws Exception{
-        JsonObject workString = new JsonParser().parse(workInfo).getAsJsonObject();
-        TravelDetail travelDetail = Json2Work(workString);
+    public String createTravelDetail(@RequestBody String travelDetailInfo) throws Exception{
+        JsonObject travelDetailString = new JsonParser().parse(travelDetailInfo).getAsJsonObject();
+        TravelDetail travelDetail = Json2Work(travelDetailString);
         try {
             travelDetailService.save(travelDetail);
             return travelDetail.toString();
@@ -103,16 +103,16 @@ public class TravelDetailController {
     //更新预案详细信息
     @RequestMapping(value = "/travelDetail", method = RequestMethod.PUT, produces = "text/html;charset=UTF-8")
     @ResponseBody
-    public String updateTravelDetail(@RequestBody String workInfo) throws Exception{
-        JsonObject workString = new JsonParser().parse(workInfo).getAsJsonObject();
-        if(workString.get("detailId").getAsString().equals("")) {
+    public String updateTravelDetail(@RequestBody String travelDetailInfo) throws Exception{
+        JsonObject travelDetailString = new JsonParser().parse(travelDetailInfo).getAsJsonObject();
+        if(travelDetailString.get("detailId").getAsString().equals("")) {
             throw new RuntimeException("没有detailId，无法更新!");
         }
         TravelDetail travelDetail = new TravelDetail();
-        travelDetail.setDetailId(workString.get("detailId").getAsInt());
-        travelDetail.setStartDate(workString.get("startDate").getAsLong());
-        travelDetail.setEndDate(workString.get("endDate").getAsLong());
-        travelDetail.setUserId(workString.get("userId").getAsInt());
+        travelDetail.setDetailId(travelDetailString.get("detailId").getAsInt());
+        travelDetail.setStartDate(travelDetailString.get("startDate").getAsLong());
+        travelDetail.setEndDate(travelDetailString.get("endDate").getAsLong());
+        travelDetail.setUserId(travelDetailString.get("userId").getAsInt());
 //        if (workString.get("reason") != null) {
 //            travelDetail.setStartDate(workString.get("startReason").getAsString());
 //        }

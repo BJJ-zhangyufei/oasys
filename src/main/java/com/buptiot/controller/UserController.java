@@ -68,9 +68,9 @@ public class UserController {
     //增加角色的信息
     @RequestMapping(value = "/user", method = RequestMethod.POST, produces = "text/html;charset=UTF-8")
     @ResponseBody
-    public String createUser(@RequestBody String workInfo) throws Exception{
-        JsonObject workString = new JsonParser().parse(workInfo).getAsJsonObject();
-        User user = Json2Work(workString);
+    public String createUser(@RequestBody String userInfo) throws Exception{
+        JsonObject userString = new JsonParser().parse(userInfo).getAsJsonObject();
+        User user = Json2Work(userString);
         try {
             userService.save(user);
             return user.toString();
@@ -82,19 +82,19 @@ public class UserController {
     //更新角色信息
     @RequestMapping(value = "/user", method = RequestMethod.PUT, produces = "text/html;charset=UTF-8")
     @ResponseBody
-    public String updateUser(@RequestBody String workInfo) throws Exception{
-        JsonObject workString = new JsonParser().parse(workInfo).getAsJsonObject();
-        if(workString.get("Id").getAsString().equals("")) {
+    public String updateUser(@RequestBody String userInfo) throws Exception{
+        JsonObject userString = new JsonParser().parse(userInfo).getAsJsonObject();
+        if(userString.get("Id").getAsString().equals("")) {
             throw new RuntimeException("没有Id，无法更新!");
         }
         User user = new User();
-        user.setId(workString.get("id").getAsInt());
-        user.setUserName(workString.get("userName").getAsString());
-        user.setLoginName(workString.get("loginName").getAsString());
-        user.setLoginPwd(workString.get("loginPwd").getAsString());
-        user.setRole(workString.get("role").getAsInt());
-        if (workString.get("userName") != null) {
-            user.setUserName(workString.get("userName").getAsString());
+        user.setId(userString.get("id").getAsInt());
+        user.setUserName(userString.get("userName").getAsString());
+        user.setLoginName(userString.get("loginName").getAsString());
+        user.setLoginPwd(userString.get("loginPwd").getAsString());
+        user.setRole(userString.get("role").getAsInt());
+        if (userString.get("userName") != null) {
+            user.setUserName(userString.get("userName").getAsString());
         }
         try {
             userService.update(user);

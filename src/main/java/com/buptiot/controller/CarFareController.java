@@ -79,9 +79,9 @@ public class CarFareController {
     //增加预案的信息
     @RequestMapping(value = "/carFare", method = RequestMethod.POST, produces = "text/html;charset=UTF-8")
     @ResponseBody
-    public String createCarFare(@RequestBody String workInfo) throws Exception{
-        JsonObject workString = new JsonParser().parse(workInfo).getAsJsonObject();
-        CarFare carFare = Json2Work(workString);
+    public String createCarFare(@RequestBody String carFareInfo) throws Exception{
+        JsonObject carFareString = new JsonParser().parse(carFareInfo).getAsJsonObject();
+        CarFare carFare = Json2Work(carFareString);
         try {
             carFareService.save(carFare);
             return carFare.toString();
@@ -93,18 +93,18 @@ public class CarFareController {
     //更新预案信息
     @RequestMapping(value = "/carFare", method = RequestMethod.PUT, produces = "text/html;charset=UTF-8")
     @ResponseBody
-    public String updateCarFare(@RequestBody String workInfo) throws Exception{
-        JsonObject workString = new JsonParser().parse(workInfo).getAsJsonObject();
-        if(workString.get("Id").getAsString().equals("")) {
+    public String updateCarFare(@RequestBody String carFareInfo) throws Exception{
+        JsonObject carFareString = new JsonParser().parse(carFareInfo).getAsJsonObject();
+        if(carFareString.get("Id").getAsString().equals("")) {
             throw new RuntimeException("没有Id，无法更新!");
         }
         CarFare carFare = new CarFare();
-        carFare.setId(workString.get("id").getAsInt());
-        carFare.setDate(workString.get("date").getAsLong());
-        carFare.setReason(workString.get("reason").getAsString());
-        carFare.setUserId(workString.get("userId").getAsInt());
-        if (workString.get("reason") != null) {
-            carFare.setReason(workString.get("reason").getAsString());
+        carFare.setId(carFareString.get("id").getAsInt());
+        carFare.setDate(carFareString.get("date").getAsLong());
+        carFare.setReason(carFareString.get("reason").getAsString());
+        carFare.setUserId(carFareString.get("userId").getAsInt());
+        if (carFareString.get("reason") != null) {
+            carFare.setReason(carFareString.get("reason").getAsString());
         }
         try {
             carFareService.update(carFare);

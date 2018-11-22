@@ -79,9 +79,9 @@ public class TravelController {
     //增加预案的信息
     @RequestMapping(value = "/travel", method = RequestMethod.POST, produces = "text/html;charset=UTF-8")
     @ResponseBody
-    public String createTravel(@RequestBody String workInfo) throws Exception{
-        JsonObject workString = new JsonParser().parse(workInfo).getAsJsonObject();
-        Travel travel = Json2Work(workString);
+    public String createTravel(@RequestBody String travelInfo) throws Exception{
+        JsonObject travelString = new JsonParser().parse(travelInfo).getAsJsonObject();
+        Travel travel = Json2Work(travelString);
         try {
             travelService.save(travel);
             return travel.toString();
@@ -93,19 +93,19 @@ public class TravelController {
     //更新预案信息
     @RequestMapping(value = "/travel", method = RequestMethod.PUT, produces = "text/html;charset=UTF-8")
     @ResponseBody
-    public String updateTravel(@RequestBody String workInfo) throws Exception{
-        JsonObject workString = new JsonParser().parse(workInfo).getAsJsonObject();
-        if(workString.get("travelId").getAsString().equals("")) {
+    public String updateTravel(@RequestBody String travelInfo) throws Exception{
+        JsonObject travelString = new JsonParser().parse(travelInfo).getAsJsonObject();
+        if(travelString.get("travelId").getAsString().equals("")) {
             throw new RuntimeException("没有travelId，无法更新!");
         }
         Travel travel = new Travel();
-        travel.setTravelId(workString.get("travelId").getAsInt());
-        travel.setDate(workString.get("date").getAsLong());
-        travel.setTraveler(workString.get("traveler").getAsString());
-        travel.setReason(workString.get("reason").getAsString());
-        travel.setUserId(workString.get("userId").getAsInt());
-        if (workString.get("reason") != null) {
-            travel.setReason(workString.get("reason").getAsString());
+        travel.setTravelId(travelString.get("travelId").getAsInt());
+        travel.setDate(travelString.get("date").getAsLong());
+        travel.setTraveler(travelString.get("traveler").getAsString());
+        travel.setReason(travelString.get("reason").getAsString());
+        travel.setUserId(travelString.get("userId").getAsInt());
+        if (travelString.get("reason") != null) {
+            travel.setReason(travelString.get("reason").getAsString());
         }
         try {
             travelService.update(travel);
