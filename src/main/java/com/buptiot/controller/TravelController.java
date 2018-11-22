@@ -19,7 +19,7 @@ public class TravelController {
     TravelService travelService;
 
     //配合分页设置，获取所有的预案信息
-    @RequestMapping(value = "/TravelByPage", params = {  "limit","page"  }, method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
+    @RequestMapping(value = "/travelByPage", params = {  "limit","page"  }, method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
     @ResponseBody
     public String getTravelByPage(@RequestParam int limit,
                                    @RequestParam int page) throws Exception {
@@ -77,7 +77,7 @@ public class TravelController {
     }
 
     //增加预案的信息
-    @RequestMapping(value = "/Travel", method = RequestMethod.POST, produces = "text/html;charset=UTF-8")
+    @RequestMapping(value = "/travel", method = RequestMethod.POST, produces = "text/html;charset=UTF-8")
     @ResponseBody
     public String createTravel(@RequestBody String workInfo) throws Exception{
         JsonObject workString = new JsonParser().parse(workInfo).getAsJsonObject();
