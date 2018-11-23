@@ -48,13 +48,13 @@ public class TravelDetail extends IdBased {
     public String toString() {
         final StringBuilder sb = new StringBuilder("{");
         sb.append("\"detailId\":")
-                .append(detailId).append('\"');
+                .append(detailId);
         sb.append(",\"startDate\":\"")
                 .append(startDate).append('\"');
         sb.append(",\"endDate\":\"")
                 .append(endDate).append('\"');
         sb.append(",\"UserId\":\"")
-                .append(UserId).append('\"');
+                .append(UserId);
         sb.append('}');
         return sb.toString();
     }
