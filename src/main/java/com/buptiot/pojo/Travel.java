@@ -55,7 +55,7 @@ public class Travel extends IdBased {
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("{");
-        sb.append(",\"travelId\":\"")
+        sb.append("\"travelId\":")
                 .append(travelId);
         sb.append(",\"Date\":\"")
                 .append(Date).append('\"');
@@ -63,7 +63,7 @@ public class Travel extends IdBased {
                 .append(Traveler).append('\"');
         sb.append(",\"Reason\":\"")
                 .append(Reason).append('\"');
-        sb.append(",\"UserId\":\"")
+        sb.append(",\"UserId\":")
                 .append(UserId);
         sb.append('}');
         return sb.toString();

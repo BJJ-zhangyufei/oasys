@@ -62,7 +62,7 @@ public class User extends IdBased {
                 .append(LoginName).append('\"');
         sb.append(",\"LoginPwd\":\"")
                 .append(LoginPwd).append('\"');
-        sb.append(",\"Role\":\"")
+        sb.append(",\"Role\":")
                 .append(Role);
         sb.append('}');
         return sb.toString();

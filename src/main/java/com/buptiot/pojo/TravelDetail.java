@@ -53,7 +53,7 @@ public class TravelDetail extends IdBased {
                 .append(startDate).append('\"');
         sb.append(",\"endDate\":\"")
                 .append(endDate).append('\"');
-        sb.append(",\"UserId\":\"")
+        sb.append(",\"UserId\":")
                 .append(UserId);
         sb.append('}');
         return sb.toString();
