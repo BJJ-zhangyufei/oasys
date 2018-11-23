@@ -55,11 +55,11 @@ public class User extends IdBased {
     public String toString() {
         final StringBuilder sb = new StringBuilder("{");
         sb.append("\"Id\":")
-                .append(Id);
+                .append(Id).append('\"');
         sb.append(",\"UserName\":\"")
-                .append(UserName);
+                .append(UserName).append('\"');
         sb.append(",\"LoginName\":\"")
-                .append(LoginName);
+                .append(LoginName).append('\"');
         sb.append(",\"LoginPwd\":\"")
                 .append(LoginPwd).append('\"');
         sb.append(",\"Role\":\"")

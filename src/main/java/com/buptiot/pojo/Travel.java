@@ -56,11 +56,11 @@ public class Travel extends IdBased {
     public String toString() {
         final StringBuilder sb = new StringBuilder("{");
         sb.append(",\"travelId\":\"")
-                .append(travelId);
+                .append(travelId).append('\"');
         sb.append(",\"Date\":\"")
                 .append(Date).append('\"');
         sb.append(",\"Traveler\":\"")
-                .append(Traveler);
+                .append(Traveler).append('\"');
         sb.append(",\"Reason\":\"")
                 .append(Reason).append('\"');
         sb.append(",\"UserId\":\"")
