@@ -1,0 +1,37 @@
+package com.buptiot.dao.Role;
+
+import com.buptiot.pojo.Role;
+import org.apache.ibatis.annotations.*;
+
+import java.util.List;
+
+/**
+ * Created by zyf on 2018/11/29.
+ */
+
+@Mapper
+public interface RoleRepository {
+
+    @Select("select roleId as roleId,roleName as roleName from Role where roleId>0 limit #{index},#{pageSize}")
+    List<Role> findAllByPage(@Param("index") Integer index, @Param("pageSize") Integer pageSize);
+
+    @Select("select roleId as roleId,roleName as roleName from Role  where roleId = #{roleId}")
+    Role findRoleByRoleId(Integer roleId);
+
+    @Select("select count(*) from Role")
+    Integer AllWorkCount();
+
+    @Insert("insert into Role (roleName) values (#{roleName})")
+    @Options(useGeneratedKeys = true, keyProperty = "roleId")
+    void save(Role role);
+
+    @Update("update Role set roleName = #{roleName} where roleId=#{roleId}")
+    void update(Role role);
+
+    @Delete("delete from Role where roleId=#{roleId}")
+    void deleteByRoleId(Integer roleId);
+
+
+    @Select("select roleId as roleId,roleName as roleName from Role  where roleId > 0")
+    List<Role> findAll();
+}

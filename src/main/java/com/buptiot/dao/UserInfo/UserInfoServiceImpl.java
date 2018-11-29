@@ -27,14 +27,14 @@ public class UserInfoServiceImpl implements UserInfoService {
 
     @Override
     public Integer findUserInfoPageNum(Integer size) {
-        log.trace("Executing findTravelPageNum [{}]", size);
+        log.trace("Executing findUserInfoPageNum [{}]", size);
         Integer num = (userInfoRepository.AllWorkCount()+size-1)/size;
         return num;
     }
 
     @Override
     public UserInfo findUserInfoById(Integer Id) {
-        log.trace("Executing findTravelById [{}]", Id);
+        log.trace("Executing findUserInfoById [{}]", Id);
         return userInfoRepository.findUserInfoById(Id);
     }
 
