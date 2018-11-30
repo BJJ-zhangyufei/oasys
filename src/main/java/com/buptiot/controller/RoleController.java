@@ -22,7 +22,7 @@ public class RoleController {
     //配合分页设置，获取所有的角色信息
     @RequestMapping(value = "/roleByPage", params = {  "limit","page"  }, method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
     @ResponseBody
-    public String getUserInfoByPage(@RequestParam int limit,
+    public String getRoleByPage(@RequestParam int limit,
                                     @RequestParam int page) throws Exception {
         try {
             return roleService.findALlByPage(page,limit).toString();
@@ -43,7 +43,7 @@ public class RoleController {
     }
 
 
-    //根据角色id获取入廊信息
+    //根据角色id获取信息
     @RequestMapping(value = "/roleByRoleId",params = {"roleId"}, method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
     @ResponseBody
     public String getRoleByRoleId(@RequestParam Integer roleId) throws Exception{
@@ -104,7 +104,7 @@ public class RoleController {
     }
 
     //通过Id删除信息
-    @RequestMapping(value = "/roleByRoleId",params = {"Id"},method = RequestMethod.DELETE)
+    @RequestMapping(value = "/roleByRoleId",params = {"roleId"},method = RequestMethod.DELETE)
     @ResponseStatus(value = HttpStatus.OK)
     public void deleteRoleByRoleId(@RequestParam Integer roleId){
         try {
@@ -123,6 +123,28 @@ public class RoleController {
             return roleService.findAllRole().toString();
         }catch (Exception e){
             throw new Exception("getRoleCount error!");
+        }
+    }
+
+    //根据用户id获取信息
+    @RequestMapping(value = "/roleByUserId",params = {"Id"}, method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
+    @ResponseBody
+    public String getRoleByUserId(@RequestParam Integer Id) throws Exception{
+        try {
+            return roleService.findRoleByUserId(Id).toString();
+        }catch (Exception e){
+            throw new Exception("getRoleByUserId error!");
+        }
+    }
+
+    //根据权限id获取信息
+    @RequestMapping(value = "/roleByAccessId",params = {"accessId"}, method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
+    @ResponseBody
+    public String getRoleByAccessId(@RequestParam Integer accessId) throws Exception{
+        try {
+            return roleService.findRoleByAccessId(accessId).toString();
+        }catch (Exception e){
+            throw new Exception("getRoleByAccessId error!");
         }
     }
 

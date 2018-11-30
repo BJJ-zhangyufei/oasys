@@ -34,4 +34,10 @@ public interface RoleRepository {
 
     @Select("select roleId as roleId,roleName as roleName from Role  where roleId > 0")
     List<Role> findAll();
+
+    @Select("SELECT * FROM UserInfo u,Role r,user_role ur WHERE u.Id = #{Id} AND u.Id=ur.userId AND ur.roleId=r.roleId;")
+    List<Role> findRoleByUserId(Integer Id);
+
+    @Select("SELECT * FROM Access a,role_access ra,Role r WHERE a.accessId = #{accessId} AND a.accessId=ra.accessId AND ra.roleId=r.roleId; ")
+    List<Role> findRoleByAccessId(Integer accessId);
 }

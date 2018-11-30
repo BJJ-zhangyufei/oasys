@@ -2,7 +2,6 @@ package com.buptiot.dao.Travel;
 
 
 import com.buptiot.pojo.Travel;
-import com.buptiot.pojo.TravelDetail;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;

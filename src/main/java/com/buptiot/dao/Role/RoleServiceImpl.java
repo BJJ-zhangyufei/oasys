@@ -28,7 +28,7 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public Integer findRolePageNum(Integer size) {
-        log.trace("Executing findTravelPageNum [{}]", size);
+        log.trace("Executing findRolePageNum [{}]", size);
         Integer num = (roleRepository.AllWorkCount()+size-1)/size;
         return num;
     }
@@ -69,5 +69,17 @@ public class RoleServiceImpl implements RoleService {
     public List<Role> findAllRole() {
         log.trace("Executing findAllWork [{}]");
         return roleRepository.findAll();
+    }
+
+    @Override
+    public List<Role> findRoleByUserId(Integer Id) {
+        log.trace("Executing findRoleByUserId [{}]", Id);
+        return roleRepository.findRoleByUserId(Id);
+    }
+
+    @Override
+    public List<Role> findRoleByAccessId(Integer accessId) {
+        log.trace("Executing findRoleByAccessId [{}]", accessId);
+        return roleRepository.findRoleByAccessId(accessId);
     }
 }

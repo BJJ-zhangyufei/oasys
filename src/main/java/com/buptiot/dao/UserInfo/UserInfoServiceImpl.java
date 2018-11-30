@@ -70,4 +70,16 @@ public class UserInfoServiceImpl implements UserInfoService {
         return userInfoRepository.findAll();
     }
 
+    @Override
+    public List<UserInfo> findUserInfoByRoleId(Integer roleId) {
+        log.trace("Executing findUserInfoByRoleId [{}]");
+        return userInfoRepository.findUserInfoByRoleId(roleId);
+    }
+
+    @Override
+    public List<UserInfo> findUserInfoByAccessId(Integer accessId) {
+        log.trace("Executing findUserInfoByAccessId [{}]");
+        return userInfoRepository.findUserInfoByAccessId(accessId);
+    }
+
 }

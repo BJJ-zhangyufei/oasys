@@ -18,7 +18,7 @@ public class UserInfoController {
     @Autowired
     UserInfoService userInfoService;
 
-    //配合分页设置，获取所有的角色信息
+    //配合分页设置，获取所有的用户信息
     @RequestMapping(value = "/userInfoByPage", params = {  "limit","page"  }, method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
     @ResponseBody
     public String getUserInfoByPage(@RequestParam int limit,
@@ -30,7 +30,7 @@ public class UserInfoController {
         }
     }
 
-    //获取所有的角色的页数
+    //获取所有的用户的页数
     @RequestMapping(value = "/userInfoPages", params = {  "limit"  }, method = RequestMethod.GET)
     @ResponseBody
     public Integer getUserInfoPages(@RequestParam int limit) throws Exception {
@@ -42,7 +42,7 @@ public class UserInfoController {
     }
 
 
-    //根据角色id获取入廊信息
+    //根据用户id获取用户信息
     @RequestMapping(value = "/userInfoById",params = {"Id"}, method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
     @ResponseBody
     public String getUserInfoById(@RequestParam Integer Id) throws Exception{
@@ -54,7 +54,7 @@ public class UserInfoController {
     }
 
 
-    //统计有多少角色
+    //统计有多少用户
     @RequestMapping(value = "/userInfoCount", method = RequestMethod.GET)
     @ResponseBody
     public Integer getUserInfoCount() throws Exception{
@@ -66,7 +66,7 @@ public class UserInfoController {
         }
     }
 
-    //增加角色的信息
+    //增加用户的信息
     @RequestMapping(value = "/userInfo", method = RequestMethod.POST, produces = "text/html;charset=UTF-8")
     @ResponseBody
     public String createUserInfo(@RequestBody String userInformation) throws Exception{
@@ -80,7 +80,7 @@ public class UserInfoController {
         }
     }
 
-    //更新角色信息
+    //更新用户信息
     @RequestMapping(value = "/userInfo", method = RequestMethod.PUT, produces = "text/html;charset=UTF-8")
     @ResponseBody
     public String updateUserInfo(@RequestBody String userInformation) throws Exception{
@@ -119,7 +119,7 @@ public class UserInfoController {
     }
 
 
-    //获取所有的角色信息
+    //获取所有的用户信息
     @RequestMapping(value = "/userInfo", method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
     @ResponseBody
     public String getAllUserInfo() throws Exception{
@@ -127,6 +127,28 @@ public class UserInfoController {
             return userInfoService.findAllUserInfo().toString();
         }catch (Exception e){
             throw new Exception("getUserInfoCount error!");
+        }
+    }
+
+    //根据角色id获取用户信息
+    @RequestMapping(value = "/userInfoByRoleId",params = {"roleId"}, method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
+    @ResponseBody
+    public String getUserInfoByRoleId(@RequestParam Integer roleId) throws Exception{
+        try {
+            return userInfoService.findUserInfoByRoleId(roleId).toString();
+        }catch (Exception e){
+            throw new Exception("getUserInfoByRoleId error!");
+        }
+    }
+
+    //根据权限id获取用户信息
+    @RequestMapping(value = "/userInfoByAccessId",params = {"accessId"}, method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
+    @ResponseBody
+    public String getUserInfoByAccessId(@RequestParam Integer accessId) throws Exception{
+        try {
+            return userInfoService.findUserInfoByAccessId(accessId).toString();
+        }catch (Exception e){
+            throw new Exception("getUserInfoByAccessId error!");
         }
     }
 

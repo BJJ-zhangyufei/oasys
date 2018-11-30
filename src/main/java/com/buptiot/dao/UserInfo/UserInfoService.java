@@ -24,4 +24,8 @@ public interface UserInfoService {
     void deleteById(Integer Id);
 
     List<UserInfo> findAllUserInfo();
+
+    List<UserInfo> findUserInfoByRoleId(Integer roleId);
+
+    List<UserInfo> findUserInfoByAccessId(Integer accessId);
 }

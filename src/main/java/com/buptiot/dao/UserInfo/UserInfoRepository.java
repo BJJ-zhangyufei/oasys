@@ -33,4 +33,10 @@ public interface UserInfoRepository {
 
     @Select("select Id as Id,UserName as UserName,Position as Position,Department as Department,Gender as Gender,Age as Age, Role as Role from UserInfo  where Id > 0")
     List<UserInfo> findAll();
+
+    @Select("SELECT * FROM UserInfo u,Role r,user_role ur WHERE r.roleId = #{roleId} AND  r.roleId=ur.roleId AND ur.userId=u.Id;")
+    List<UserInfo> findUserInfoByRoleId(Integer roleId);
+
+    @Select("SELECT * FROM UserInfo u,Role r,user_role ur WHERE r.roleId=ur.roleId AND ur.userId=u.Id AND r.roleId IN  (SELECT r.roleId FROM Access a,role_access ra,Role r WHERE a.accessId=#{accessId} AND a.accessId=ra.accessId AND ra.roleId=r.roleId);")
+    List<UserInfo> findUserInfoByAccessId(Integer accessId);
 }

@@ -26,4 +26,8 @@ public interface RoleService {
     void deleteByRoleId(Integer roleId);
 
     List<Role> findAllRole();
+
+    List<Role> findRoleByUserId(Integer Id);
+
+    List<Role> findRoleByAccessId(Integer accessId);
 }
