@@ -122,7 +122,7 @@ public class ReservePlanController {
     //获取所有的未审批的预案信息
     @RequestMapping(value = "/noReservePlan", method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
     @ResponseBody
-    public String getAllReservePlan() throws Exception{
+    public String getNoReservePlan() throws Exception{
         try {
             return reservePlanService.findNoReservePlan().toString();
         }catch (Exception e){
@@ -168,7 +168,7 @@ public class ReservePlanController {
         }
     }
 
-    //根据预案id获取预案信息
+    //根据预案id获取用户信息
     @RequestMapping(value = "/userInfoByPlanId",params = {"id"}, method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
     @ResponseBody
     public String getUserInfoByPlanId(@RequestParam Integer id) throws Exception{
