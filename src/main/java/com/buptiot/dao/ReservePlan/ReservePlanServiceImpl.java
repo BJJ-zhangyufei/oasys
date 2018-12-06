@@ -3,6 +3,7 @@ package com.buptiot.dao.ReservePlan;
 import com.buptiot.dao.ReservePlan.ReservePlanRepository;
 import com.buptiot.dao.ReservePlan.ReservePlanService;
 import com.buptiot.pojo.ReservePlan;
+import com.buptiot.pojo.UserInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -87,6 +88,12 @@ public class ReservePlanServiceImpl implements ReservePlanService {
     public void disagree(Integer id) {
         log.trace("Executing disagree [{}]");
         reservePlanRepository.disagree(id);
+    }
+
+    @Override
+    public UserInfo findUserInfoByPlanId(Integer id) {
+        log.trace("Executing findUserInfoByPlanId [{}]", id);
+        return reservePlanRepository.findUserInfoByPlanId(id);
     }
 
 }

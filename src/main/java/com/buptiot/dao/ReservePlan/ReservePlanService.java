@@ -1,6 +1,7 @@
 package com.buptiot.dao.ReservePlan;
 
 import com.buptiot.pojo.ReservePlan;
+import com.buptiot.pojo.UserInfo;
 
 import java.util.List;
 
@@ -30,4 +31,6 @@ public interface ReservePlanService {
     void agree(Integer id);
 
     void disagree(Integer id);
+
+    UserInfo findUserInfoByPlanId(Integer id);
 }

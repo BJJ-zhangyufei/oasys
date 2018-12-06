@@ -168,6 +168,17 @@ public class ReservePlanController {
         }
     }
 
+    //根据预案id获取预案信息
+    @RequestMapping(value = "/userInfoByPlanId",params = {"id"}, method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
+    @ResponseBody
+    public String getUserInfoByPlanId(@RequestParam Integer id) throws Exception{
+        try {
+            return reservePlanService.findUserInfoByPlanId(id).toString();
+        }catch (Exception e){
+            throw new Exception("getUserInfoByPlanId error!");
+        }
+    }
+
 
 
     private ReservePlan Json2Work(JsonObject workString) {
