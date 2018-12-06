@@ -30,7 +30,15 @@ public interface ReservePlanRepository {
     @Delete("delete from ReservePlan where Id=#{id}")
     void deleteById(Integer id);
 
-
     @Select("select Id as Id,planName as planName,userId as userId,userName as userName,addDate as addDate,state as state from ReservePlan  where state = 0")
-    List<ReservePlan> findAll();
+    List<ReservePlan> findNo();
+
+    @Select("select Id as Id,planName as planName,userId as userId,userName as userName,addDate as addDate,state as state from ReservePlan  where state = 1 or state = 2")
+    List<ReservePlan> findAlready();
+
+    @Update("update ReservePlan set state = 1 where Id=#{id}")
+    void agree(Integer id);
+
+    @Update("update ReservePlan set state = 2 where Id=#{id}")
+    void disagree(Integer id);
 }

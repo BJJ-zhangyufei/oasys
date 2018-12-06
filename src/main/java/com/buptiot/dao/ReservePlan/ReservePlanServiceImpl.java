@@ -65,10 +65,28 @@ public class ReservePlanServiceImpl implements ReservePlanService {
     }
 
     @Override
-    public List<ReservePlan> findAllReservePlan() {
+    public List<ReservePlan> findNoReservePlan() {
         log.trace("Executing findAllReservePlan [{}]");
-        return reservePlanRepository.findAll();
+        return reservePlanRepository.findNo();
     }
 
+
+    @Override
+    public List<ReservePlan> findAlreadyReservePlan() {
+        log.trace("Executing findAllReservePlan [{}]");
+        return reservePlanRepository.findAlready();
+    }
+
+    @Override
+    public void agree(Integer id) {
+        log.trace("Executing agree [{}]");
+        reservePlanRepository.agree(id);
+    }
+
+    @Override
+    public void disagree(Integer id) {
+        log.trace("Executing disagree [{}]");
+        reservePlanRepository.disagree(id);
+    }
 
 }

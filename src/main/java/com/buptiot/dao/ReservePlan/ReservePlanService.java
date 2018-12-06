@@ -23,5 +23,11 @@ public interface ReservePlanService {
 
     void deleteById(Integer id);
 
-    List<ReservePlan> findAllReservePlan();
+    List<ReservePlan> findNoReservePlan();
+
+    List<ReservePlan> findAlreadyReservePlan();
+
+    void agree(Integer id);
+
+    void disagree(Integer id);
 }

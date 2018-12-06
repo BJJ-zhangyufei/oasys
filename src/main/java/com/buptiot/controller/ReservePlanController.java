@@ -108,11 +108,11 @@ public class ReservePlanController {
     }
 
     //通过Id删除信息
-    @RequestMapping(value = "/reservePlanById",params = {"Id"},method = RequestMethod.DELETE)
+    @RequestMapping(value = "/reservePlanById",params = {"id"},method = RequestMethod.DELETE)
     @ResponseStatus(value = HttpStatus.OK)
-    public void deleteReservePlanById(@RequestParam Integer Id){
+    public void deleteReservePlanById(@RequestParam Integer id){
         try {
-            reservePlanService.deleteById(Id);
+            reservePlanService.deleteById(id);
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -120,13 +120,51 @@ public class ReservePlanController {
 
 
     //获取所有的未审批的预案信息
-    @RequestMapping(value = "/reservePlan", method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
+    @RequestMapping(value = "/noReservePlan", method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
     @ResponseBody
     public String getAllReservePlan() throws Exception{
         try {
-            return reservePlanService.findAllReservePlan().toString();
+            return reservePlanService.findNoReservePlan().toString();
         }catch (Exception e){
             throw new Exception("getReservePlanCount error!");
+        }
+    }
+
+
+    //获取所有的审批的预案信息
+    @RequestMapping(value = "/alreadyReservePlan", method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
+    @ResponseBody
+    public String getAlreadyReservePlan() throws Exception{
+        try {
+            return reservePlanService.findAlreadyReservePlan().toString();
+        }catch (Exception e){
+            throw new Exception("getReservePlanCount error!");
+        }
+    }
+
+
+    //审批通过
+    @RequestMapping(value = "/agreeReservePlan", params = {"id"},method = RequestMethod.PUT)
+    @ResponseStatus(value = HttpStatus.OK)
+    public void agreeReservePlan(@RequestParam Integer id) throws Exception{
+        try {
+            reservePlanService.agree(id);
+           // return reservePlan.toString();
+        } catch (Exception e) {
+            throw new Exception("agreeReservePlan error!");
+        }
+    }
+
+
+    //审批不通过
+    @RequestMapping(value = "/disagreeReservePlan", params = {"id"},method = RequestMethod.PUT)
+    @ResponseStatus(value = HttpStatus.OK)
+    public void disagreeReservePlan(@RequestParam Integer id) throws Exception{
+        try {
+            reservePlanService.disagree(id);
+            // return reservePlan.toString();
+        } catch (Exception e) {
+            throw new Exception("agreeReservePlan error!");
         }
     }
 
