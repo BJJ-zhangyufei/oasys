@@ -21,7 +21,7 @@ public interface AccessRepository {
     @Select("select count(*) from Access")
     Integer AllWorkCount();
 
-    @Insert("insert into Access (accessName) values (#{accessName})")
+    @Insert("insert into Access (accessId,accessName) values (#{accessId},#{accessName})")
     @Options(useGeneratedKeys = true, keyProperty = "accessId")
     void save(Access access);
 

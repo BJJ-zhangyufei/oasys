@@ -71,8 +71,8 @@ public class PlanAuditController {
     @RequestMapping(value = "/planAudit", method = RequestMethod.POST, produces = "text/html;charset=UTF-8")
     @ResponseBody
     public String createPlanAudit(@RequestBody String planInfo) throws Exception{
-        JsonObject userString = new JsonParser().parse(planInfo).getAsJsonObject();
-        PlanAudit planAudit = Json2Work(userString);
+        JsonObject planString = new JsonParser().parse(planInfo).getAsJsonObject();
+        PlanAudit planAudit = Json2Work(planString);
         try {
             planAuditService.save(planAudit);
             return planAudit.toString();
@@ -86,8 +86,8 @@ public class PlanAuditController {
     @ResponseBody
     public String updatePlanAudit(@RequestBody String planInfo) throws Exception{
         JsonObject planInfoString = new JsonParser().parse(planInfo).getAsJsonObject();
-        if(planInfoString.get("Id").getAsString().equals("")) {
-            throw new RuntimeException("没有Id，无法更新!");
+        if(planInfoString.get("id").getAsString().equals("")) {
+            throw new RuntimeException("没有id，无法更新!");
         }
         PlanAudit planAudit = new PlanAudit();
         planAudit.setId(planInfoString.get("id").getAsInt());
@@ -137,10 +137,6 @@ public class PlanAuditController {
         planAudit.setUserId(planInfoString.get("userId").getAsInt());
         planAudit.setUserName(planInfoString.get("userName").getAsString());
         planAudit.setAuditInfo(planInfoString.get("auditInfo").getAsString());
-
-        if (planInfoString.get("userName") != null) {
-            planAudit.setUserName(planInfoString.get("userName").getAsString());
-        }
 
         return planAudit;
     }

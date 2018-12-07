@@ -16,7 +16,7 @@ public class PlanAudit {
         return id;
     }
 
-    public void setId(Integer Id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -57,7 +57,7 @@ public class PlanAudit {
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("{");
-        sb.append("\"Id\":")
+        sb.append("\"id\":")
                 .append(id);
         sb.append(",\"planId\":")
                 .append(planId);

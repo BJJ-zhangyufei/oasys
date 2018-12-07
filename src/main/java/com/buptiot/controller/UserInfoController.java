@@ -85,8 +85,8 @@ public class UserInfoController {
     @ResponseBody
     public String updateUserInfo(@RequestBody String userInformation) throws Exception{
         JsonObject userInfoString = new JsonParser().parse(userInformation).getAsJsonObject();
-        if(userInfoString.get("Id").getAsString().equals("")) {
-            throw new RuntimeException("没有Id，无法更新!");
+        if(userInfoString.get("id").getAsString().equals("")) {
+            throw new RuntimeException("没有id，无法更新!");
         }
         UserInfo userInfo = new UserInfo();
         userInfo.setId(userInfoString.get("id").getAsInt());

@@ -21,8 +21,8 @@ public interface ReservePlanRepository {
     @Select("select count(*) from ReservePlan")
     Integer AllWorkCount();
 
-    @Insert("insert into ReservePlan(planName,userId,userName,addDate,state) values (#{planName},#{userId},#{userName},#{addDate},#{state})")
-    @Options(useGeneratedKeys = true, keyProperty = "Id")
+    @Insert("insert into ReservePlan(id,planName,userId,userName,addDate,state) values (#{id},#{planName},#{userId},#{userName},#{addDate},#{state})")
+    @Options(useGeneratedKeys = true, keyProperty = "id")
     void save(ReservePlan reservePlan);
 
     @Update("update ReservePlan set planName = #{planName},userId = #{userId},userName = #{userName},addDate = #{addDate},state = #{state} where Id=#{id}")

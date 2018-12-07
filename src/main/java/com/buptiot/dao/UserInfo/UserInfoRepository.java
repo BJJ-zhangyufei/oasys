@@ -20,11 +20,11 @@ public interface UserInfoRepository {
     @Select("select count(*) from UserInfo")
     Integer AllWorkCount();
 
-    @Insert("insert into UserInfo (UserName,Position,Department,Gender,Age,Role) values (#{UserName},#{Position},#{Department},#{Gender},#{Age},#{Role})")
+    @Insert("insert into UserInfo (Id,UserName,Position,Department,Gender,Age,Role) values (#{Id},#{UserName},#{Position},#{Department},#{Gender},#{Age},#{Role})")
     @Options(useGeneratedKeys = true, keyProperty = "Id")
     void save(UserInfo userInfo);
 
-    @Update("update UserInfo set UserName = #{UserName},Position = #{Position},Department = #{Department},Gender = #{Gender},Age = #{Age},Role = #{Role} where Id=#{Id}")
+    @Update("update UserInfo set UserName = #{UserName},Position = #{Position},Department = #{Department},Gender = #{Gender},Age = #{Age},Role = #{Role} where Id=#{id}")
     void update(UserInfo userInfo);
 
     @Delete("delete from UserInfo where Id=#{Id}")

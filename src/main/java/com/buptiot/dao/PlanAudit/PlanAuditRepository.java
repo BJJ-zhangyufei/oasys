@@ -14,14 +14,14 @@ public interface PlanAuditRepository {
     @Select("select Id as Id,planId as planId,userId as userId,userName as userName,auditInfo as auditInfo from PlanAudit where id>0 limit #{index},#{pageSize}")
     List<PlanAudit> findAllByPage(@Param("index") Integer index, @Param("pageSize") Integer pageSize);
 
-    @Select("select Id as Id,planId as planId,userId as userId,userName as userName,auditInfo as auditInfo from PlanAudit from PlanAudit where id = #{id}")
-    PlanAudit findPlanAuditById(Integer Id);
+    @Select("select Id as Id,planId as planId,userId as userId,userName as userName,auditInfo as auditInfo from PlanAudit  where id = #{id}")
+    PlanAudit findPlanAuditById(Integer id);
 
     @Select("select count(*) from PlanAudit")
     Integer AllWorkCount();
 
-    @Insert("insert into PlanAudit(planId,userId,userName,auditInfo) values (#{planId},#{userId},#{userName},#{auditInfo})")
-    @Options(useGeneratedKeys = true, keyProperty = "Id")
+    @Insert("insert into PlanAudit(id,planId,userId,userName,auditInfo) values (#{id},#{planId},#{userId},#{userName},#{auditInfo})")
+    @Options(useGeneratedKeys = true, keyProperty = "id")
     void save(PlanAudit planAudit);
 
     @Update("update PlanAudit set planId = #{planId},userId = #{userId},userName = #{userName},auditInfo = #{auditInfo} where Id=#{id}")

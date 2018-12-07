@@ -21,7 +21,7 @@ public interface RoleRepository {
     @Select("select count(*) from Role")
     Integer AllWorkCount();
 
-    @Insert("insert into Role (roleName) values (#{roleName})")
+    @Insert("insert into Role (roleId,roleName) values (#{roleId},#{roleName})")
     @Options(useGeneratedKeys = true, keyProperty = "roleId")
     void save(Role role);
 

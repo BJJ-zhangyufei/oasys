@@ -86,8 +86,8 @@ public class ReservePlanController {
     @ResponseBody
     public String updateReservePlan(@RequestBody String planInfo) throws Exception{
         JsonObject planInfoString = new JsonParser().parse(planInfo).getAsJsonObject();
-        if(planInfoString.get("Id").getAsString().equals("")) {
-            throw new RuntimeException("没有Id，无法更新!");
+        if(planInfoString.get("id").getAsString().equals("")) {
+            throw new RuntimeException("没有id，无法更新!");
         }
         ReservePlan reservePlan = new ReservePlan();
         reservePlan.setId(planInfoString.get("id").getAsInt());
