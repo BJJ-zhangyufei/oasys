@@ -20,7 +20,7 @@ public interface PlanAuditRepository {
     @Select("select count(*) from PlanAudit")
     Integer AllWorkCount();
 
-    @Insert("insert into PlanAudit(id,planId,userId,userName,auditInfo) values (#{id},#{planId},#{userId},#{userName},#{auditInfo})")
+    @Insert("insert into PlanAudit(planId,userId,userName,auditInfo) values (#{planId},#{userId},#{userName},#{auditInfo})")
     @Options(useGeneratedKeys = true, keyProperty = "id")
     void save(PlanAudit planAudit);
 

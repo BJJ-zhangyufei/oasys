@@ -132,7 +132,7 @@ public class PlanAuditController {
 
     private PlanAudit Json2Work(JsonObject planInfoString) {
         PlanAudit planAudit = new PlanAudit();
-        planAudit.setId(planInfoString.get("id").getAsInt());
+       // planAudit.setId(planInfoString.get("id").getAsInt());
         planAudit.setPlanId(planInfoString.get("planId").getAsInt());
         planAudit.setUserId(planInfoString.get("userId").getAsInt());
         planAudit.setUserName(planInfoString.get("userName").getAsString());
