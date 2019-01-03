@@ -24,3 +24,18 @@ mybatis:
     default-executor-type: reuse
     default-statement-timeout: 25000
   type-aliases-package: org.spring.springboot.domain
+
+account:
+#  host: 39.104.165.155
+#  port: 8400
+  host: 39.104.189.84
+  port: 30080
+  login_url: http://${account.host}:${account.port}/api/v1/account/login
+  logout_url: http://${account.host}:${account.port}/api/v1/account/logout
+  client_id: client_2
+  client_secret: 123456
+
+
+device-access:
+ host: 39.104.189.84
+ port: 30080
