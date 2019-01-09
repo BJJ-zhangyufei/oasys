@@ -223,11 +223,117 @@ public class DeviceController extends DefaultIOTAwaredController {
    // @ApiOperation(value="获取租户所有设备的信息", notes="获取租户所有设备的信息")
     @RequestMapping(value = "/alldevices", method = RequestMethod.GET, produces = {"application/json;charset=UTF-8"})
     @ResponseBody
-    public String getDevices(@RequestParam int limit, @RequestParam(required = false) String textSearch,
+    public String getDevices(@RequestParam int limit,
+                             @RequestParam(required = false) String textSearch,
                              @RequestParam(required = false) String idOffset,
                              @RequestParam(required = false) String textOffset) {
 
         String requestAddr = "/api/v1/deviceaccess/tenant/devices/"  + getTenantId() +"?limit=" + limit;
+        if(textSearch != null){
+            requestAddr = requestAddr + "&textSearch=" + textSearch;
+        }
+        if(idOffset != null){
+            requestAddr = requestAddr + "&idOffset=" + idOffset;
+        }
+        if(textOffset != null){
+            requestAddr = requestAddr + "&textOffset=" + textOffset;
+        }
+
+        String responseContent = null ;
+        try {
+            responseContent = HttpUtil.sendGetToThingsboard("http://" + getDeviceAccessServer() + requestAddr,
+                    null,
+                    request.getSession()) ;
+        } catch (Exception e) {
+            return retFail(e.toString()) ;
+        }
+
+        try {
+            return retSuccess(decodeArray(responseContent)) ;
+        } catch (Exception e) {
+            return retFail(e.toString()) ;
+        }
+
+    }
+
+    //删除某个tenant下所有设备
+    // @ApiOperation(value="删除租户所有设备的信息", notes="删除租户所有设备的信息")
+    @RequestMapping(value = "/deleteAllDevices", method = RequestMethod.DELETE, produces = {"application/json;charset=UTF-8"})
+    @ResponseBody
+    public String deleteDevices(@PathVariable("tenantId") Integer tenantId) throws Exception{
+
+        String requestAddr = "/api/v1/deviceaccess/devices/"  + tenantId;
+
+        try{
+            String responseContent = HttpUtil.sendDeletToThingsboard(requestAddr,request.getSession());
+            return retSuccess(responseContent) ;
+        }catch(Exception e){
+            return retFail(e.toString()) ;
+        }
+
+    }
+
+    //通过设备ID获取其下的设备
+    // @ApiOperation(value = "得到deviceId设备的设备信息", notes = "通过deviceId获取设备信息")
+    @RequestMapping(value = "/devices", params = {"deviceId"}, method = RequestMethod.GET, produces = {"application/json;charset=UTF-8"})
+    @ResponseBody
+    public String getDevicesById(@RequestParam String deviceId) {
+
+        String requestAddr = "http://" + getDeviceAccessServer() + "/api/v1/deviceaccess/device/"+deviceId ;
+
+        String responseContent = null ;
+        try{
+            responseContent = HttpUtil.sendGetToThingsboard(requestAddr,
+                    null,
+                    request.getSession());
+        } catch (Exception e) {
+            return retFail(e.toString()) ;
+        }
+
+        try {
+            return retSuccess(decodeArray(responseContent)) ;
+        } catch (Exception e) {
+            return retFail(e.toString()) ;
+        }
+    }
+
+    //通过设备名获取其下的设备
+    // @ApiOperation(value = "通过设备名字获取设备信息", notes = "通过设备名字获取设备信息")
+    @RequestMapping(value = "/devicesByName",  params = {"name"},method = RequestMethod.GET, produces = {"application/json;charset=UTF-8"})
+    @ResponseBody
+    public String getDevicesByName(@RequestParam String name) throws Exception{
+
+        String requestAddr = "/api/v1/deviceaccess/device/" +  getTenantId() + "/" + name;
+
+        String responseContent = null ;
+        try{
+            responseContent = HttpUtil.sendGetToThingsboard("http://" + getDeviceAccessServer() + requestAddr,
+                    null,
+                    request.getSession());
+        } catch (Exception e) {
+            return retFail(e.toString()) ;
+        }
+
+        try {
+            return retSuccess(decodeArray(responseContent)) ;
+        } catch (Exception e) {
+            return retFail(e.toString()) ;
+        }
+    }
+
+    //根据站点Id获取设备，其中limit为必要参数
+    // @ApiOperation(value="根据站点Id获取设备的信息", notes="根据站点Id获取设备的信息")
+    @RequestMapping(value = "/devicesBySiteId", params = {"siteId"},method = RequestMethod.GET, produces = {"application/json;charset=UTF-8"})
+    @ResponseBody
+    public String getDevicesBySiteId(
+            @RequestParam Integer siteId,
+            @RequestParam int limit,
+            @RequestParam(required = false) String type,
+            @RequestParam(required = false) String textSearch,
+            @RequestParam(required = false) String idOffset,
+            @RequestParam(required = false) String textOffset) throws Exception{
+
+        String requestAddr = "/api/v1/deviceaccess/sitedevices/" + getTenantId()+ "/" + siteId +"?limit=" + limit;
         if(textSearch != null){
             requestAddr = requestAddr + "&textSearch=" + textSearch;
         }
