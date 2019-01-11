@@ -50,16 +50,16 @@ public class LoginController extends DefaultIOTAwaredController{
         session.setAttribute("password", password);
 
         String res = HttpUtil.getAccessToken(session);
-//        JsonObject responseJson = (JsonObject) new JsonParser().parse(res);
-//        if(responseJson.has("error")){
-//            response.setStatus(400);
-//            session.removeAttribute("username");
-//            session.removeAttribute("password");
-//        }else if(responseJson.has("access_token")){
-//            UsernamePasswordToken usernamePasswordToken=new UsernamePasswordToken(username,password);
-//            Subject subject = SecurityUtils.getSubject();
-//            subject.login(usernamePasswordToken);   //完成登录
-//        }
+        JsonObject responseJson = (JsonObject) new JsonParser().parse(res);
+        if(responseJson.has("error")){
+            response.setStatus(400);
+            session.removeAttribute("username");
+            session.removeAttribute("password");
+        }else if(responseJson.has("access_token")){
+            UsernamePasswordToken usernamePasswordToken=new UsernamePasswordToken(username,password);
+            Subject subject = SecurityUtils.getSubject();
+            subject.login(usernamePasswordToken);   //完成登录
+        }
         return res;
     }
 
@@ -71,8 +71,8 @@ public class LoginController extends DefaultIOTAwaredController{
         if(res) {
             session.removeAttribute("username");
             session.removeAttribute("password");
-//            Subject subject = SecurityUtils.getSubject();
-//            subject.logout();
+            Subject subject = SecurityUtils.getSubject();
+            subject.logout();
             return retSuccess("success to logout");
         }else {
             return retFail("fail to logout");
