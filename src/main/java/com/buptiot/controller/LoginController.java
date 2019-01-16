@@ -133,7 +133,7 @@ public class LoginController extends DefaultIOTAwaredController{
         }
     }
 
-    @RequestMapping(value = "/authorize", method = RequestMethod.GET)
+    @RequestMapping(value = "/huohuo", method = RequestMethod.GET)
     @ResponseBody
     public String authorize(){
 
