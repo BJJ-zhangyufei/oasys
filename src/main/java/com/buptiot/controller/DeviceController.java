@@ -221,7 +221,7 @@ public class DeviceController extends DefaultIOTAwaredController {
 
     //获取所有设备，其中limit为必要参数
    // @ApiOperation(value="获取租户所有设备的信息", notes="获取租户所有设备的信息")
-    @RequestMapping(value = "/alldevices", method = RequestMethod.GET, produces = {"application/json;charset=UTF-8"})
+    @RequestMapping(value = "/alldevices",  method = RequestMethod.GET, produces = {"application/json;charset=UTF-8"})
     @ResponseBody
     public String getDevices(@RequestParam int limit,
                              @RequestParam(required = false) String textSearch,
