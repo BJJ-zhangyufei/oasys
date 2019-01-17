@@ -6,6 +6,11 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+import com.buptiot.config.MySessionContext;
+import com.buptiot.utils.HttpUtil;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.session.Session;
@@ -14,16 +19,10 @@ import org.apache.shiro.subject.Subject;
 import org.apache.shiro.subject.support.DefaultSubjectContext;
 import org.apache.shiro.web.session.mgt.WebSessionKey;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import javax.servlet.http.HttpSessionContext;
+import javax.servlet.http.*;
 
 /**
  * Created by zyf on 2018/12/12.
@@ -137,7 +136,8 @@ public class LoginController extends DefaultIOTAwaredController{
     @ResponseBody
     public String authorize(){
 
-        return request.getRequestedSessionId();
+        return request.getRequestedSessionId().toString();
 
     }
+
 }
