@@ -136,7 +136,9 @@ public class LoginController extends DefaultIOTAwaredController{
     @ResponseBody
     public String authorize(){
 
-        return request.getRequestedSessionId().toString();
+        String req =  request.getRequestedSessionId();
+        String result = "{\"session\":\""+req+"\"}";
+        return result;
 
     }
 
