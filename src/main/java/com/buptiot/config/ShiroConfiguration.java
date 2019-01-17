@@ -27,7 +27,7 @@ public class ShiroConfiguration {
         bean.setSecurityManager(manager);
         //配置登录的url和登录成功的url
         bean.setLoginUrl("/api/v1/info/login");
-        bean.setSuccessUrl("/home");
+       // bean.setSuccessUrl("/home");
         //配置访问权限
 //        LinkedHashMap<String, String> filterChainDefinitionMap=new LinkedHashMap<>();
 //        filterChainDefinitionMap.put("/autoLogin", "anon"); //表示可以匿名访问
