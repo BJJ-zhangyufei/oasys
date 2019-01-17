@@ -21,7 +21,7 @@ public class ThroughFilter implements Filter{
         HttpServletResponse res = (HttpServletResponse) servletResponse;
         res.setHeader("Access-Control-Allow-Origin", "http://localhost:8080");
         res.setHeader("Access-Control-Allow-Methods", "*");
-        res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+        res.setHeader("Access-Control-Allow-Headers", "Origin,Content-Type");
         res.setHeader("Access-Control-Allow-Credentials", "true");
         filterChain.doFilter(servletRequest, servletResponse);
     }
