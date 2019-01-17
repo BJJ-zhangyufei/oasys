@@ -19,7 +19,7 @@ public class ThroughFilter implements Filter{
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletResponse res = (HttpServletResponse) servletResponse;
-        res.setHeader("Access-Control-Allow-Origin", "*");
+        res.setHeader("Access-Control-Allow-Origin", "http://10.112.112.138");
         res.setHeader("Access-Control-Allow-Methods", "*");
         res.setHeader("Access-Control-Allow-Headers", "Content-Type");
         res.setHeader("Access-Control-Allow-Credentials", "true");
