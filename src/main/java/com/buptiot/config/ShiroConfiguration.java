@@ -27,23 +27,23 @@ public class ShiroConfiguration {
         bean.setSecurityManager(manager);
         //配置登录的url和登录成功的url
         bean.setLoginUrl("/api/v1/info/login");
-        bean.setSuccessUrl("/homepages");
+        //bean.setSuccessUrl("/homepages");
         //配置访问权限
-        LinkedHashMap<String, String> filterChainDefinitionMap=new LinkedHashMap<>();
-        filterChainDefinitionMap.put("/autoLogin", "anon"); //表示可以匿名访问
-        filterChainDefinitionMap.put("/signin", "anon"); //表示可以匿名访问
-        filterChainDefinitionMap.put("/", "anon");
-        filterChainDefinitionMap.put("/signup", "anon");
-        filterChainDefinitionMap.put("/static/*", "anon");
-        filterChainDefinitionMap.put("/static/**", "anon");
-        filterChainDefinitionMap.put("/logout*","anon");
-        filterChainDefinitionMap.put("/signin","anon");
-        filterChainDefinitionMap.put("/api/user/**", "anon") ;
-        filterChainDefinitionMap.put("/jsp/index.jsp*","authc");
-        filterChainDefinitionMap.put("/*", "authc");//表示需要认证才可以访问
-        filterChainDefinitionMap.put("/**", "authc");
-        filterChainDefinitionMap.put("/*.*", "authc");
-        bean.setFilterChainDefinitionMap(filterChainDefinitionMap);
+//        LinkedHashMap<String, String> filterChainDefinitionMap=new LinkedHashMap<>();
+//        filterChainDefinitionMap.put("/autoLogin", "anon"); //表示可以匿名访问
+//        filterChainDefinitionMap.put("/signin", "anon"); //表示可以匿名访问
+//        filterChainDefinitionMap.put("/", "anon");
+//        filterChainDefinitionMap.put("/signup", "anon");
+//        filterChainDefinitionMap.put("/static/*", "anon");
+//        filterChainDefinitionMap.put("/static/**", "anon");
+//        filterChainDefinitionMap.put("/logout*","anon");
+//        filterChainDefinitionMap.put("/signin","anon");
+//        filterChainDefinitionMap.put("/api/user/**", "anon") ;
+//        filterChainDefinitionMap.put("/jsp/index.jsp*","authc");
+//        filterChainDefinitionMap.put("/*", "authc");//表示需要认证才可以访问
+//        filterChainDefinitionMap.put("/**", "authc");
+//        filterChainDefinitionMap.put("/*.*", "authc");
+//        bean.setFilterChainDefinitionMap(filterChainDefinitionMap);
         return bean;
     }
 
