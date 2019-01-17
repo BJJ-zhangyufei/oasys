@@ -23,7 +23,8 @@ public class ThroughFilter implements Filter{
         res.setHeader("Access-Control-Allow-Methods", "*");
         res.setHeader("Access-Control-Allow-Headers", "content-type");
         res.setHeader("Access-Control-Allow-Credentials", "true");
-        res.addHeader("Set-Cookie","name=SessionId;timeout=30;path=/;HttpOnly");
+       // res.addHeader("Set-Cookie","name=SessionId;timeout=30;path=/;HttpOnly");
+        res.setHeader("Access-Control-Max-Age", "3600");
         filterChain.doFilter(servletRequest, servletResponse);
     }
 
