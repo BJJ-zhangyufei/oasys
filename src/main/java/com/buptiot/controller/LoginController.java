@@ -28,7 +28,7 @@ import javax.servlet.http.*;
  * Created by zyf on 2018/12/12.
  */
 @RestController
-@RequestMapping("/api/v1/info")
+@RequestMapping("/api/v1/user")
 @CrossOrigin
 public class LoginController extends DefaultIOTAwaredController{
 

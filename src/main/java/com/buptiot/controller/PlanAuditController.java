@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
  * Created by zyf on 2018/12/6.
  */
 @RestController
-@RequestMapping("/api/v1/info")
+@RequestMapping("/api/v1/user")
 @CrossOrigin
 public class PlanAuditController {
 

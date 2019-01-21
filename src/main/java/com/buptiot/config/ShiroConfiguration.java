@@ -26,7 +26,7 @@ public class ShiroConfiguration {
         ShiroFilterFactoryBean bean=new ShiroFilterFactoryBean();
         bean.setSecurityManager(manager);
         //配置登录的url和登录成功的url
-        bean.setLoginUrl("/api/v1/info/login");
+        bean.setLoginUrl("/api/v1/user/login");
         bean.setSuccessUrl("/index");
         //配置访问权限
 //        LinkedHashMap<String, String> filterChainDefinitionMap=new LinkedHashMap<>();
