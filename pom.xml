@@ -57,10 +57,12 @@
 			<artifactId>lombok</artifactId>
 			<version>1.16.18</version>
 		</dependency>
+
+
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-web</artifactId>
-			<version>5.0.5.RELEASE</version>
+			<version>5.0.9.RELEASE</version>
 		</dependency>
 		<dependency>
 			<groupId>com.google.code.gson</groupId>

@@ -11,8 +11,8 @@ import org.springframework.context.annotation.PropertySource;
 @SpringBootConfiguration
 @SpringBootApplication
 @ComponentScan({"com.buptiot"})
-@PropertySource({"classpath:disconf.properties"})
-@ImportResource({"classpath:disconf.xml"})//引入disconf
+//@PropertySource({"classpath:disconf.properties"})
+//@ImportResource({"classpath:disconf.xml"})//引入disconf
 @ServletComponentScan
 public class OasysApplication {
 
