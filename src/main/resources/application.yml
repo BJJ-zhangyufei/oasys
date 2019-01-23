@@ -14,7 +14,8 @@ spring:
       force: true
   datasource:
       driver-class-name: com.mysql.jdbc.Driver
-      url: jdbc:mysql://172.24.32.169:3306/BUPT_IOT?characterEncoding=UTF-8&useUnicode=true  #jdbc:mysql://localhost:3306/dbgirl_test?useUnicode=true&characterEncoding=utf8&characterSetResults=utf8
+      #url: jdbc:mysql://172.24.32.169:3306/BUPT_IOT?characterEncoding=UTF-8&useUnicode=true  #jdbc:mysql://localhost:3306/dbgirl_test?useUnicode=true&characterEncoding=utf8&characterSetResults=utf8
+      url: jdbc:mysql://39.104.165.155:3306/BUPT_IOT?characterEncoding=UTF-8&useUnicode=true&useSSL=true
       username: root
       password: root
       cachePrepStmts: true  # 开启二级缓存
@@ -31,14 +32,20 @@ mybatis:
   type-aliases-package: org.spring.springboot.domain
 
 account:
-  host: account
-  port: 8400
-  login_url: http://account:8400/api/v1/account/login
-  logout_url: http://account:8400/api/v1/account/logout
+  #ost: account
+  #port: 8400
+  #login_url: http://account:8400/api/v1/account/login
+  #logout_url: http://account:8400/api/v1/account/logout
+  host: 39.104.189.84
+  port: 30080
+  login_url: http://${account.host}:${account.port}/api/v1/account/login
+  logout_url: http://${account.host}:${account.port}/api/v1/account/logout
   client_id: client_2
   client_secret: 123456
 
 
 device-access:
- host: deviceaccess
- port: 8100
+ #host: deviceaccess
+ #port: 8100
+  host: 39.104.189.84
+  port: 30080

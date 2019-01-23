@@ -1,0 +1,40 @@
+package com.buptiot.dao.user;
+
+import com.buptiot.pojo.user;
+import org.apache.ibatis.annotations.*;
+
+import java.util.List;
+
+/**
+ * Created by zyf on 2019/1/22.
+ */
+@Mapper
+public interface userRepository {
+
+    @Select("select Id as Id,UserName as UserName,Position as Position,Department as Department,Gender as Gender,Age as Age,Role as Role from UserInfo where Id>0 limit #{index},#{pageSize}")
+    List<user> findAllByPage(@Param("index") Integer index, @Param("pageSize") Integer pageSize);
+
+    @Select("select id as id,name as name,email as email from user  where id = #{id}")
+    user findUserById(Integer Id);
+
+    @Select("SELECT userId,name,email FROM user u,group_user gr,chatGroup c  WHERE c.chatGroupId = #{chatGroupId} AND c.chatGroupId=gr.chatGroupId AND gr.userId=u.id;;")
+    List<user> findUserByChatGroupId(Integer ChatGroupId);
+
+    @Select("select count(*) from user")
+    Integer AllWorkCount();
+
+    @Insert("insert into user (id,name,email) values (#{id},#{name},#{email})")
+    @Options(useGeneratedKeys = true, keyProperty = "Id")
+    void save(user user);
+
+    @Update("update user set name = #{name},email = #{email} where id=#{id}")
+    void update(user user);
+
+    @Delete("delete from user where id=#{id}")
+    void deleteById(Integer id);
+
+
+    @Select("select id as id,name as name,email as email from user  where tenant_id = 73 and id!=209 and id != 210 and id != 211 and id != 212 and id != 213 and id != #{id}")
+    List<user> findAll(Integer Id);
+
+}
