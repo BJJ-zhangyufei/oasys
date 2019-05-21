@@ -1,9 +1,7 @@
 package com.buptiot.dao.ReservePlan;
 
-import com.buptiot.dao.ReservePlan.ReservePlanRepository;
-import com.buptiot.dao.ReservePlan.ReservePlanService;
 import com.buptiot.pojo.ReservePlan;
-import com.buptiot.pojo.UserInfo;
+import com.buptiot.pojo.user;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -91,7 +89,7 @@ public class ReservePlanServiceImpl implements ReservePlanService {
     }
 
     @Override
-    public UserInfo findUserInfoByPlanId(Integer id) {
+    public user findUserInfoByPlanId(Integer id) {
         log.trace("Executing findUserInfoByPlanId [{}]", id);
         return reservePlanRepository.findUserInfoByPlanId(id);
     }

@@ -19,144 +19,83 @@ public class RoleController {
     @Autowired
     RoleService roleService;
 
-    //配合分页设置，获取所有的角色信息
-    @RequestMapping(value = "/roleByPage", params = {  "limit","page"  }, method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
-    @ResponseBody
-    public String getRoleByPage(@RequestParam int limit,
-                                    @RequestParam int page) throws Exception {
-        try {
-            return roleService.findALlByPage(page,limit).toString();
-        } catch (Exception e) {
-            throw new Exception("getRoleByPage error!");
-        }
-    }
-
-    //获取所有的角色的页数
-    @RequestMapping(value = "/rolePages", params = {  "limit"  }, method = RequestMethod.GET)
-    @ResponseBody
-    public Integer getRolePages(@RequestParam int limit) throws Exception {
-        try {
-            return roleService.findRolePageNum(limit);
-        } catch (Exception e) {
-            throw new Exception("getRolePages error!");
-        }
-    }
-
-
-    //根据角色id获取信息
-    @RequestMapping(value = "/roleByRoleId",params = {"roleId"}, method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
-    @ResponseBody
-    public String getRoleByRoleId(@RequestParam Integer roleId) throws Exception{
-        try {
-            return roleService.findRoleByRoleId(roleId).toString();
-        }catch (Exception e){
-            throw new Exception("getRoleByRoleId error!");
-        }
-    }
-
-
-    //统计有多少角色
-    @RequestMapping(value = "/roleCount", method = RequestMethod.GET)
-    @ResponseBody
-    public Integer getRoleCount() throws Exception{
-        try {
-            Integer count = roleService.allWorkCount();
-            return count;
-        }catch (Exception e){
-            throw new Exception("getRoleCount error!");
-        }
-    }
-
-    //增加角色的信息
-    @RequestMapping(value = "/role", method = RequestMethod.POST, produces = "text/html;charset=UTF-8")
-    @ResponseBody
-    public String createRole(@RequestBody String roleInfo) throws Exception{
-        JsonObject userString = new JsonParser().parse(roleInfo).getAsJsonObject();
-        Role role = Json2Work(userString);
-        try {
-            roleService.save(role);
-            return roleInfo.toString();
-        } catch (Exception e) {
-            throw new Exception("createRole error!");
-        }
-    }
-
-    //更新角色信息
-    @RequestMapping(value = "/role", method = RequestMethod.PUT, produces = "text/html;charset=UTF-8")
-    @ResponseBody
-    public String updateRole(@RequestBody String roleInfo) throws Exception{
-        JsonObject userInfoString = new JsonParser().parse(roleInfo).getAsJsonObject();
-        if(userInfoString.get("roleId").getAsString().equals("")) {
-            throw new RuntimeException("没有Id，无法更新!");
-        }
-        Role role = new Role();
-        role.setRoleId(userInfoString.get("roleId").getAsInt());
-        role.setRoleName(userInfoString.get("roleName").getAsString());
-        if (userInfoString.get("roleName") != null) {
-            role.setRoleName(userInfoString.get("roleName").getAsString());
-        }
-        try {
-            roleService.update(role);
-            return role.toString();
-        } catch (Exception e) {
-            throw new Exception("createRole error!");
-        }
-    }
-
-    //通过Id删除信息
-    @RequestMapping(value = "/roleByRoleId",params = {"roleId"},method = RequestMethod.DELETE)
-    @ResponseStatus(value = HttpStatus.OK)
-    public void deleteRoleByRoleId(@RequestParam Integer roleId){
-        try {
-            roleService.deleteByRoleId(roleId);
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-    }
-
-
     //获取所有的角色信息
     @RequestMapping(value = "/role", method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
     @ResponseBody
     public String getAllRole() throws Exception{
         try {
-            return roleService.findAllRole().toString();
+            return roleService.findAllRoles().toString();
         }catch (Exception e){
             throw new Exception("getRoleCount error!");
         }
     }
 
     //根据用户id获取信息
-    @RequestMapping(value = "/roleByUserId",params = {"Id"}, method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
+    @RequestMapping(value = "/allRolesByUserId",params = {"user_id"}, method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
     @ResponseBody
-    public String getRoleByUserId(@RequestParam Integer Id) throws Exception{
+    public String findAllRolesByUserId(@RequestParam Integer user_id) throws Exception{
         try {
-            return roleService.findRoleByUserId(Id).toString();
+            return roleService.findAllRolesByUserId(user_id).toString();
         }catch (Exception e){
-            throw new Exception("getRoleByUserId error!");
+            throw new Exception("findAllRolesByUserId error!");
         }
     }
 
-    //根据权限id获取信息
-    @RequestMapping(value = "/roleByAccessId",params = {"accessId"}, method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
+
+    //通过Id删除信息
+    @RequestMapping(value = "/deleteRoleById",params = {"id"},method = RequestMethod.DELETE)
+    @ResponseStatus(value = HttpStatus.OK)
+    public void deleteRoleById(@RequestParam Integer id){
+        try {
+            roleService.deleteRoleById(id);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    //根据角色id获取信息
+    @RequestMapping(value = "/findRoleById",params = {"id"}, method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
     @ResponseBody
-    public String getRoleByAccessId(@RequestParam Integer accessId) throws Exception{
+    public String findRoleById(@RequestParam Integer id) throws Exception{
         try {
-            return roleService.findRoleByAccessId(accessId).toString();
+            return roleService.findRoleById(id).toString();
         }catch (Exception e){
-            throw new Exception("getRoleByAccessId error!");
+            throw new Exception("findRoleById error!");
         }
     }
 
-    private Role Json2Work(JsonObject workString) {
-        Role role = new Role();
-        role.setRoleId(workString.get("roleId").getAsInt());
-        role.setRoleName(workString.get("roleName").getAsString());
+//    //配合分页设置，获取所有的角色信息
+//    @RequestMapping(value = "/roleByPage", params = {  "limit","page"  }, method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
+//    @ResponseBody
+//    public String getRoleByPage(@RequestParam int limit,
+//                                    @RequestParam int page) throws Exception {
+//        try {
+//            return roleService.findALlByPage(page,limit).toString();
+//        } catch (Exception e) {
+//            throw new Exception("getRoleByPage error!");
+//        }
+//    }
+//
+//    //获取所有的角色的页数
+//    @RequestMapping(value = "/rolePages", params = {  "limit"  }, method = RequestMethod.GET)
+//    @ResponseBody
+//    public Integer getRolePages(@RequestParam int limit) throws Exception {
+//        try {
+//            return roleService.findRolePageNum(limit);
+//        } catch (Exception e) {
+//            throw new Exception("getRolePages error!");
+//        }
+//    }
 
-        if (workString.get("roleName") != null) {
-            role.setRoleName(workString.get("roleName").getAsString());
+    //根据权限id获取角色信息
+    @RequestMapping(value = "/findRoleByPermissionId",params = {"permission_id"}, method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
+    @ResponseBody
+    public String findRoleByPermissionId(@RequestParam Integer permission_id) throws Exception{
+        try {
+            return roleService.findRoleByPermissionId(permission_id).toString();
+        }catch (Exception e){
+            throw new Exception("findRoleByPermissionId error!");
         }
-
-        return role;
     }
+
 }

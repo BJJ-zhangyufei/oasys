@@ -128,12 +128,23 @@ public class UserController {
     }
 
 
-    //获取所有的用户信息
+    //获取所有的用户信息（不包括当前登录用户）
     @RequestMapping(value = "/user",params = {"Id"}, method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
     @ResponseBody
     public String getAllUser(@RequestParam Integer Id) throws Exception{
         try {
             return userService.findAllUser(Id).toString();
+        }catch (Exception e){
+            throw new Exception("getUserCount error!");
+        }
+    }
+
+    //获取所有的用户信息（包括当前登录用户）
+    @RequestMapping(value = "/allUsers", method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
+    @ResponseBody
+    public String getAllUser() throws Exception{
+        try {
+            return userService.findAllUsers().toString();
         }catch (Exception e){
             throw new Exception("getUserCount error!");
         }

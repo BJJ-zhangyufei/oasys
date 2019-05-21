@@ -1,7 +1,7 @@
 package com.buptiot.dao.ReservePlan;
 
 import com.buptiot.pojo.ReservePlan;
-import com.buptiot.pojo.UserInfo;
+import com.buptiot.pojo.user;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -43,6 +43,6 @@ public interface ReservePlanRepository {
     @Update("update ReservePlan set state = 2 where Id=#{id}")
     void disagree(Integer id);
 
-    @Select("SELECT * FROM UserInfo u,ReservePlan r,plan_user pr WHERE r.id = #{id} AND  r.id = pr.planId AND pr.userId = u.Id;")
-    UserInfo findUserInfoByPlanId(Integer id);
+    @Select("SELECT u.id,u.name,u.email FROM user u,ReservePlan r,plan_user pr WHERE r.id = #{id} AND  r.id = pr.planId AND pr.userId = u.Id;")
+    user findUserInfoByPlanId(Integer id);
 }

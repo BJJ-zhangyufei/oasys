@@ -1,11 +1,11 @@
 package com.buptiot.pojo;
 
 /**
- * Created by zyf on 2018/11/29.
+ * Created by zyf on 2019/5/21.
  */
-public class Role {
+public class Permission {
 
-    private Integer id;
+    private int id;
 
     private String name;
 
@@ -19,13 +19,8 @@ public class Role {
         return name;
     }
 
-    public Role(Integer id, String name, String description) {
+    public Permission(Integer id, String name, String description) {
         this.id = id;
-        this.name = name;
-        this.description = description;
-    }
-
-    public Role(String name, String description) {
         this.name = name;
         this.description = description;
     }

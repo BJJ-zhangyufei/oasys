@@ -77,4 +77,10 @@ public class userServiceImpl implements userService {
         return userRepository.findAll(Id);
     }
 
+    @Override
+    public List<user> findAllUsers() {
+        log.trace("Executing findAllUser [{}]");
+        return userRepository.findAllUsers();
+    }
+
 }

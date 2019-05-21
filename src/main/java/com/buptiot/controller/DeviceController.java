@@ -228,7 +228,8 @@ public class DeviceController extends DefaultIOTAwaredController {
                              @RequestParam(required = false) String idOffset,
                              @RequestParam(required = false) String textOffset) {
 
-        String requestAddr = "/api/v1/deviceaccess/tenant/devices/"  + getTenantId() +"?limit=" + limit;
+        //String requestAddr = "/api/v1/deviceaccess/tenant/devices/"  + getTenantId() +"?limit=" + limit;
+        String requestAddr = "http://deviceaccess:8100/api/v1/deviceaccess/tenant/devices/"  + getTenantId() +"?limit=" + limit;
         if(textSearch != null){
             requestAddr = requestAddr + "&textSearch=" + textSearch;
         }
@@ -241,7 +242,10 @@ public class DeviceController extends DefaultIOTAwaredController {
 
         String responseContent = null ;
         try {
-            responseContent = HttpUtil.sendGetToThingsboard("http://" + getDeviceAccessServer() + requestAddr,
+//            responseContent = HttpUtil.sendGetToThingsboard("http://" + getDeviceAccessServer() + requestAddr,
+//                    null,
+//                    request.getSession()) ;
+            responseContent = HttpUtil.sendGetToThingsboard(requestAddr,
                     null,
                     request.getSession()) ;
         } catch (Exception e) {
@@ -333,7 +337,8 @@ public class DeviceController extends DefaultIOTAwaredController {
             @RequestParam(required = false) String idOffset,
             @RequestParam(required = false) String textOffset) throws Exception{
 
-        String requestAddr = "/api/v1/deviceaccess/sitedevices/" + getTenantId()+ "/" + siteId +"?limit=" + limit;
+       //String requestAddr = "/api/v1/deviceaccess/sitedevices/" + getTenantId()+ "/" + siteId +"?limit=" + limit;
+        String requestAddr = "http://deviceaccess:8100/api/v1/deviceaccess/sitedevices/" + getTenantId()+ "/" + siteId +"?limit=" + limit;
         if(textSearch != null){
             requestAddr = requestAddr + "&textSearch=" + textSearch;
         }
@@ -346,7 +351,10 @@ public class DeviceController extends DefaultIOTAwaredController {
 
         String responseContent = null ;
         try {
-            responseContent = HttpUtil.sendGetToThingsboard("http://" + getDeviceAccessServer() + requestAddr,
+//            responseContent = HttpUtil.sendGetToThingsboard("http://" + getDeviceAccessServer() + requestAddr,
+//                    null,
+//                    request.getSession()) ;
+            responseContent = HttpUtil.sendGetToThingsboard(requestAddr,
                     null,
                     request.getSession()) ;
         } catch (Exception e) {

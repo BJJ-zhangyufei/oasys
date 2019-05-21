@@ -28,4 +28,6 @@ public interface userService {
 
     List<user> findAllUser(Integer Id);
 
+    List<user> findAllUsers();
+
 }

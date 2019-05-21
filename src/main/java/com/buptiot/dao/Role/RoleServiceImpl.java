@@ -1,5 +1,6 @@
 package com.buptiot.dao.Role;
 
+import com.buptiot.dao.DataValidationException;
 import com.buptiot.dao.Role.RoleRepository;
 import com.buptiot.dao.Role.RoleService;
 import com.buptiot.pojo.Role;
@@ -17,69 +18,86 @@ import java.util.List;
 @Service
 public class RoleServiceImpl implements RoleService {
 
+    public static final Integer DEFAULT_ROLES_NUM = 3;
+
     @Autowired
-    RoleRepository roleRepository;
+    private RoleRepository roleRepository;
 
     @Override
-    public List<Role> findALlByPage(Integer page, Integer pageSize) {
-        log.trace("Executing findALlByPage [{}]", page,pageSize);
-        return roleRepository.findAllByPage(page,pageSize);
-    }
-
-    @Override
-    public Integer findRolePageNum(Integer size) {
-        log.trace("Executing findRolePageNum [{}]", size);
-        Integer num = (roleRepository.AllWorkCount()+size-1)/size;
-        return num;
-    }
-
-    @Override
-    public Role findRoleByRoleId(Integer roleId) {
-        log.trace("Executing findRoleByRoleId [{}]", roleId);
-        return roleRepository.findRoleByRoleId(roleId);
-    }
-
-
-    @Override
-    public Integer allWorkCount() {
-        log.trace("Executing allWorkCount [{}]");
-        Integer count = roleRepository.AllWorkCount();
-        return count;
-    }
-
-    @Override
-    public void save(Role role) {
-        log.trace("Executing save [{}]");
-        roleRepository.save(role);
-    }
-
-    @Override
-    public void update(Role role) {
-        log.trace("Executing update [{}]");
-        roleRepository.update(role);
-    }
-
-    @Override
-    public void deleteByRoleId(Integer roleId) {
-        log.trace("Executing deleteByRoleId [{}]",roleId);
-        roleRepository.deleteByRoleId(roleId);
-    }
-
-    @Override
-    public List<Role> findAllRole() {
-        log.trace("Executing findAllWork [{}]");
+    public List<Role> findAllRoles() {
         return roleRepository.findAll();
     }
 
     @Override
-    public List<Role> findRoleByUserId(Integer Id) {
-        log.trace("Executing findRoleByUserId [{}]", Id);
-        return roleRepository.findRoleByUserId(Id);
+    public List<Role> findAllRolesByUserId(int user_id) {
+        return roleRepository.findAllByUserId(user_id);
     }
 
     @Override
-    public List<Role> findRoleByAccessId(Integer accessId) {
-        log.trace("Executing findRoleByAccessId [{}]", accessId);
-        return roleRepository.findRoleByAccessId(accessId);
+    public List<Role> findExtraRolesByUserId(int user_id) {
+        return roleRepository.findExtraByUserId(user_id);
+    }
+
+    @Override
+    public List<Role> findNotOwnedExtraRolesByUserId(int user_id) {
+        return roleRepository.findNotOwnedExtraByUserId(user_id);
+    }
+
+    @Override
+    public Integer saveRole(Role role) {
+        return roleRepository.saveRole(role);
+    }
+
+    @Override
+    public void deleteRoleById(Integer id) {
+        if(id != null && id > DEFAULT_ROLES_NUM) {
+            roleRepository.deleteRolePermissionRelation(id);
+            roleRepository.deleteRoleUserRelationByRoleId(id);
+            roleRepository.deleteById(id);
+        }else{
+            throw new DataValidationException("Role Id should be specified and default roles can't be deleted!");
+        }
+    }
+
+    @Override
+    public void deleteRoleUserRelationByUserId(Integer user_id) {
+        roleRepository.deleteRoleUserRelationByUserId(user_id);
+    }
+
+    @Override
+    public void updateRole(Role role) {
+        if((Integer)role.getId()==null){
+            throw new DataValidationException("Role Id should be specified!");
+        }
+        roleRepository.update(role);
+    }
+
+    @Override
+    public Role findRoleById(Integer id) {
+        return roleRepository.findById(id);
+    }
+
+    @Override
+    public void saveRoleUserRelation(Integer role_id, Integer user_id) {
+        if(role_id != null && role_id > DEFAULT_ROLES_NUM) {
+            roleRepository.saveRoleUserRelation(role_id,user_id);
+        }else {
+            throw new DataValidationException("You can't assign a default role to user!");
+        }
+    }
+
+    @Override
+    public void deleteRoleUserRelation(Integer role_id, Integer user_id) {
+        if(role_id != null && role_id > DEFAULT_ROLES_NUM) {
+            roleRepository.deleteRoleUserRelation(role_id,user_id);
+        }else {
+            throw new DataValidationException("You can't delete a default role from user!");
+        }
+    }
+
+    @Override
+    public List<Role> findRoleByPermissionId(Integer permission_id) {
+        log.trace("Executing findRoleByPermissionId [{}]", permission_id);
+        return roleRepository.findRoleByPermissionId(permission_id);
     }
 }

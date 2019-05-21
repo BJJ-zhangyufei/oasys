@@ -12,32 +12,46 @@ import java.util.List;
 @Mapper
 public interface RoleRepository {
 
-    @Select("select roleId as roleId,roleName as roleName from Role where roleId>0 limit #{index},#{pageSize}")
-    List<Role> findAllByPage(@Param("index") Integer index, @Param("pageSize") Integer pageSize);
-
-    @Select("select roleId as roleId,roleName as roleName from Role  where roleId = #{roleId}")
-    Role findRoleByRoleId(Integer roleId);
-
-    @Select("select count(*) from Role")
-    Integer AllWorkCount();
-
-    @Insert("insert into Role (roleId,roleName) values (#{roleId},#{roleName})")
-    @Options(useGeneratedKeys = true, keyProperty = "roleId")
-    void save(Role role);
-
-    @Update("update Role set roleName = #{roleName} where roleId=#{roleId}")
-    void update(Role role);
-
-    @Delete("delete from Role where roleId=#{roleId}")
-    void deleteByRoleId(Integer roleId);
-
-
-    @Select("select roleId as roleId,roleName as roleName from Role  where roleId > 0")
+    @Select("select  id  as id,name as name,description as description from role")
     List<Role> findAll();
 
-    @Select("SELECT * FROM UserInfo u,Role r,user_role ur WHERE u.Id = #{Id} AND u.Id=ur.userId AND ur.roleId=r.roleId;")
-    List<Role> findRoleByUserId(Integer Id);
+    @Select("select id  as id,name as name,description as description from role where id in (select role_id from role_user_relation where user_id = #{user_id})")
+    List<Role> findAllByUserId(int user_id);
 
-    @Select("SELECT * FROM Access a,role_access ra,Role r WHERE a.accessId = #{accessId} AND a.accessId=ra.accessId AND ra.roleId=r.roleId; ")
-    List<Role> findRoleByAccessId(Integer accessId);
+    @Select("select id  as id,name as name,description as description from role where id in (select role_id from role_user_relation where user_id = #{user_id}) and id > 3")
+    List<Role> findExtraByUserId(int user_id);
+
+    @Select("select id  as id,name as name,description as description from role where id not in (select role_id from role_user_relation where user_id = #{user_id}) and id > 3")
+    List<Role> findNotOwnedExtraByUserId(int user_id);
+
+    @Select("select  id  as id,name as name,description as description from role where id=#{id}")
+    Role findById(Integer id);
+
+    @Insert("insert into role (name,description) values (#{name},#{description}) ")
+    @Options(useGeneratedKeys = true,keyProperty="id")
+    Integer saveRole(Role role);
+
+    @Delete("delete from role where id = #{id}")
+    void deleteById(Integer id);
+
+    @Update("update role set name = #{name},description = #{description} where id=#{id}")
+    void update(Role role);
+
+    @Delete("delete from role_user_relation where role_id = #{role_id}")
+    void deleteRoleUserRelationByRoleId(Integer role_id);
+
+    @Delete("delete from role_user_relation where user_id = #{user_id}")
+    void deleteRoleUserRelationByUserId(Integer user_id);
+
+    @Delete("delete from role_permission_relation where role_id = #{role_id}")
+    void deleteRolePermissionRelation(Integer role_id);
+
+    @Insert("insert into role_user_relation (role_id,user_id) values (#{role_id},#{user_id}) ")
+    void saveRoleUserRelation(@Param("role_id")Integer role_id,@Param("user_id")Integer user_id);
+
+    @Delete("delete from role_user_relation where role_id = #{role_id} and user_id = #{user_id}")
+    void deleteRoleUserRelation(@Param("role_id")Integer role_id,@Param("user_id")Integer user_id);
+
+    @Select("SELECT p.id,p.name,p.description FROM permission p,role_permission_relation rp,role r WHERE p.id = #{permission_id} AND p.id = rp.permission_id AND rp.role_id=r.id ")
+    List<Role> findRoleByPermissionId(Integer permission_id);
 }
