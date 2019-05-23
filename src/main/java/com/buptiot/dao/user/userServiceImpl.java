@@ -23,7 +23,15 @@ public class userServiceImpl implements userService {
     @Override
     public List<user> findALlByPage(Integer page, Integer pageSize) {
         log.trace("Executing findALlByPage [{}]", page,pageSize);
-        return userRepository.findAllByPage(page,pageSize);
+        Integer index = page * pageSize;
+        return userRepository.findAllByPage(index,pageSize);
+    }
+
+    @Override
+    public List<user> findALlByName(String name,Integer page, Integer pageSize) {
+        log.trace("Executing findALlByName [{}]", name,page,pageSize);
+        Integer index = page * pageSize;
+        return userRepository.findAllByName(name,index,pageSize);
     }
 
     @Override
@@ -50,6 +58,13 @@ public class userServiceImpl implements userService {
     public Integer allWorkCount() {
         log.trace("Executing allWorkCount [{}]");
         Integer count = userRepository.AllWorkCount();
+        return count;
+    }
+
+    @Override
+    public Integer findCountByName(String name) {
+        log.trace("Executing allWorkCount [{}]");
+        Integer count = userRepository.findCountByName(name);
         return count;
     }
 

@@ -12,6 +12,8 @@ public interface userService {
 
     List<user> findALlByPage(Integer page, Integer pageSize);
 
+    List<user> findALlByName(String name,Integer page, Integer pageSize);
+
     Integer findUserPageNum(Integer size);
 
     user findUserById(Integer Id);
@@ -19,6 +21,8 @@ public interface userService {
     List<user> findUserByChatGroupId(Integer chatGroupId);
 
     Integer allWorkCount();
+
+    Integer findCountByName(String name);
 
     void save(user user);
 

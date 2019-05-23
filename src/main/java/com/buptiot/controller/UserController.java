@@ -4,6 +4,7 @@ import com.buptiot.dao.user.userService;
 import com.buptiot.pojo.user;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -18,13 +19,27 @@ public class UserController {
     @Autowired
     userService userService;
 
-    //配合分页设置，获取所有的用户信息
-    @RequestMapping(value = "/userByPage", params = {  "limit","page"  }, method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
+    //分页接口配置，有筛选参数返回筛选参数的，没有则显示全部
+    @RequestMapping(value = "/userByPage", method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
     @ResponseBody
-    public String getUserByPage(@RequestParam int limit,
-                                    @RequestParam int page) throws Exception {
+    public String getUserByPage(@RequestParam (name="limit") int limit,
+                                @RequestParam (name="page") int page,
+                                @RequestParam(value="name",required=false,defaultValue = "1") String name ) throws Exception {
         try {
-            return userService.findALlByPage(page,limit).toString();
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("limit",limit);
+            jsonObject.put("page",page);
+            if(name.equals("1")){
+                Integer count = userService.allWorkCount();
+                jsonObject.put("allCount",count);
+                jsonObject.put("data",userService.findALlByPage(page,limit));
+                return jsonObject.toString();
+            }else {
+                Integer count = userService.findCountByName(name);
+                jsonObject.put("data", userService.findALlByName(name, page, limit));
+                jsonObject.put("allCount", count);
+                return jsonObject.toString();
+            }
         } catch (Exception e) {
             throw new Exception("getUserInfoByPage error!");
         }
