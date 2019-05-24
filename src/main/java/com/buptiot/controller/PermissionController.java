@@ -162,6 +162,12 @@ public class PermissionController extends BaseController{
         return roleService.findAllRolesByUserId(user_id).toString();
     }
 
+    //根据用户user_id获取角色名称
+    @RequestMapping(value = "/findRolesNameByUserId", params = { "user_id"}, method = RequestMethod.GET,produces = "text/html;charset=UTF-8")
+    public String findRolesNameByUserId(@RequestParam Integer user_id) throws IOTException {
+        return roleService.findRolesNameByUserId(user_id).toString();
+    }
+
     //根据权限id获取角色信息
     @RequestMapping(value = "/role/findRoleByPermissionId",params = {"permission_id"}, method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
     @ResponseBody

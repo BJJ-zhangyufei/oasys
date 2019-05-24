@@ -4,6 +4,7 @@ import com.buptiot.pojo.Role;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by zyf on 2018/11/29.
@@ -23,6 +24,9 @@ public interface RoleRepository {
 
     @Select("select id  as id,name as name,description as description from role where id not in (select role_id from role_user_relation where user_id = #{user_id}) and id > 3")
     List<Role> findNotOwnedExtraByUserId(int user_id);
+
+    @Select("select name as name from role where id in (select role_id from role_user_relation where user_id = #{user_id})")
+    Set<String> findRolesNameByUserId(int user_id);
 
     @Select("select  id  as id,name as name,description as description from role where id=#{id}")
     Role findById(Integer id);

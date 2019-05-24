@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by zyf on 2018/11/29.
@@ -41,6 +42,11 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public List<Role> findNotOwnedExtraRolesByUserId(int user_id) {
         return roleRepository.findNotOwnedExtraByUserId(user_id);
+    }
+
+    @Override
+    public Set<String> findRolesNameByUserId(int user_id) {
+        return roleRepository.findRolesNameByUserId(user_id);
     }
 
     @Override

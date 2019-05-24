@@ -2,15 +2,9 @@ package com.buptiot.controller;
 
 import com.buptiot.config.MySessionContext;
 import com.buptiot.utils.HttpUtil;
-import com.fasterxml.jackson.databind.JsonNode;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
-import com.buptiot.config.MySessionContext;
-import com.buptiot.utils.HttpUtil;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.session.Session;
@@ -22,7 +16,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.*;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import javax.servlet.http.HttpSessionContext;
 
 /**
  * Created by zyf on 2018/12/12.
@@ -143,3 +140,4 @@ public class LoginController extends DefaultIOTAwaredController{
     }
 
 }
+

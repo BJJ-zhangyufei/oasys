@@ -32,14 +32,14 @@ mybatis:
   type-aliases-package: org.spring.springboot.domain
 
 account:
-  host: account
-  port: 8400
-  login_url: http://account:8400/api/v1/account/login
-  logout_url: http://account:8400/api/v1/account/logout
-  #host: 39.104.189.84
-  #port: 30080
-  #login_url: http://${account.host}:${account.port}/api/v1/account/login
-  #logout_url: http://${account.host}:${account.port}/api/v1/account/logout
+  #host: account
+  #port: 8400
+  #login_url: http://account:8400/api/v1/account/login
+  #logout_url: http://account:8400/api/v1/account/logout
+  host: 39.104.189.84
+  port: 30080
+  login_url: http://${account.host}:${account.port}/api/v1/account/login
+  logout_url: http://${account.host}:${account.port}/api/v1/account/logout
   client_id: client_2
   client_secret: 123456
 

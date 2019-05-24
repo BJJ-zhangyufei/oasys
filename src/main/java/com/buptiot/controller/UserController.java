@@ -168,7 +168,7 @@ public class UserController {
 
     private user Json2Work(JsonObject userInfoString) {
         user user = new user();
-        user.setId(userInfoString.get("id").getAsInt());
+        //user.setId(userInfoString.get("id").getAsInt());
         user.setName(userInfoString.get("name").getAsString());
         user.setEmail(userInfoString.get("email").getAsString());
         if (userInfoString.get("name") != null) {

@@ -68,4 +68,13 @@ public class DefaultIOTAwaredController {
 //        Integer customerId = jo.get("customer_id").getAsInt();
         return customerId;
     }
+
+    public Integer getUserId(){
+        HttpSession sess = request.getSession();
+        Integer userId = (Integer) sess.getAttribute("user_id");
+//        String res = HttpUtil.getAccessToken(sess);
+//        JsonObject jo = (JsonObject)new JsonParser().parse(res);
+//        Integer customerId = jo.get("customer_id").getAsInt();
+        return userId;
+    }
 }

@@ -11,7 +11,7 @@ import java.lang.annotation.*;
 @Documented
 public @interface Auth {
 
-    String[] user() default {};
+    //String[] user() default {};
 
     String[] authorities() default {};
 

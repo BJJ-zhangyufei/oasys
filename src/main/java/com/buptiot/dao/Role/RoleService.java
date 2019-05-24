@@ -4,6 +4,7 @@ package com.buptiot.dao.Role;
 import com.buptiot.pojo.Role;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by zyf on 2018/11/29.
@@ -18,6 +19,8 @@ public interface RoleService {
     List<Role> findExtraRolesByUserId(int user_id);
 
     List<Role> findNotOwnedExtraRolesByUserId(int user_id);
+
+    Set<String> findRolesNameByUserId(int user_id);
 
     Integer saveRole(Role role);
 
