@@ -12,6 +12,8 @@ spring:
       charset: UTF-8
       enabled: true
       force: true
+    aop:
+      proxy-target-class: true
   datasource:
       driver-class-name: com.mysql.jdbc.Driver
       #url: jdbc:mysql://172.24.32.169:3306/BUPT_IOT?characterEncoding=UTF-8&useUnicode=true  #jdbc:mysql://localhost:3306/dbgirl_test?useUnicode=true&characterEncoding=utf8&characterSetResults=utf8
@@ -19,6 +21,7 @@ spring:
       username: root
       password: root
       cachePrepStmts: true  # 开启二级缓存
+
 
 
 mybatis:
@@ -29,7 +32,8 @@ mybatis:
     multiple-result-sets-enabled: true
     default-executor-type: reuse
     default-statement-timeout: 25000
-  type-aliases-package: org.spring.springboot.domain
+  #type-aliases-package: org.spring.springboot.domain
+  type-aliases-package: com.buptiot
 
 account:
   #host: account

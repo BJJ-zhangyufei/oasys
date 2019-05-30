@@ -1,6 +1,8 @@
 package com.buptiot.controller;
 
+import com.buptiot.annotation.Auth;
 import com.buptiot.dao.Role.RoleService;
+import com.buptiot.exception.IOTException;
 import com.buptiot.pojo.Role;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -20,13 +22,14 @@ public class RoleController {
     RoleService roleService;
 
     //获取所有的角色信息
+    @Auth(roles = {"GeneralDispatcher","GeneralMonitor"})
     @RequestMapping(value = "/role", method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
     @ResponseBody
     public String getAllRole() throws Exception{
         try {
             return roleService.findAllRoles().toString();
         }catch (Exception e){
-            throw new Exception("getRoleCount error!");
+                throw new Exception("getAllRoles error!");
         }
     }
 
@@ -62,6 +65,12 @@ public class RoleController {
         }catch (Exception e){
             throw new Exception("findRoleById error!");
         }
+    }
+
+    //为一个user分配role
+    @RequestMapping(value = "/role/user", params = { "user_id"},method = RequestMethod.POST)
+    public void saveUserToRole(@RequestParam Integer user_id) throws IOTException {
+        roleService.saveUserToRole(user_id);
     }
 
 //    //配合分页设置，获取所有的角色信息

@@ -1,5 +1,6 @@
 package com.buptiot.dao.Role;
 
+import com.buptiot.annotation.PermissionAop;
 import com.buptiot.pojo.Role;
 import org.apache.ibatis.annotations.*;
 
@@ -14,6 +15,8 @@ import java.util.Set;
 public interface RoleRepository {
 
     @Select("select  id  as id,name as name,description as description from role")
+    @ResultType(Role.class)
+    @PermissionAop("test")
     List<Role> findAll();
 
     @Select("select id  as id,name as name,description as description from role where id in (select role_id from role_user_relation where user_id = #{user_id})")
@@ -52,6 +55,9 @@ public interface RoleRepository {
 
     @Insert("insert into role_user_relation (role_id,user_id) values (#{role_id},#{user_id}) ")
     void saveRoleUserRelation(@Param("role_id")Integer role_id,@Param("user_id")Integer user_id);
+
+    @Insert("insert into role_user_relation (role_id,user_id) values (14,#{user_id}) ")
+    void saveUserToRole(@Param("user_id")Integer user_id);
 
     @Delete("delete from role_user_relation where role_id = #{role_id} and user_id = #{user_id}")
     void deleteRoleUserRelation(@Param("role_id")Integer role_id,@Param("user_id")Integer user_id);

@@ -75,6 +75,12 @@ public class userServiceImpl implements userService {
     }
 
     @Override
+    public Integer findIdByName(String name) {
+        log.trace("Executing findIdByName [{}]", name);
+        return userRepository.findIdByName(name);
+    }
+
+    @Override
     public void update(user user) {
         log.trace("Executing update [{}]");
         userRepository.update(user);

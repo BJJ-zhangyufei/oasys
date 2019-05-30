@@ -108,6 +108,18 @@ public class UserController {
         }
     }
 
+    //根据用户id获取用户信息
+    @RequestMapping(value = "/idByName", method = RequestMethod.GET)
+    @ResponseBody
+    public Integer findIdByName(@RequestParam (name="name") String name) throws Exception{
+        try {
+            Integer user_id = userService.findIdByName(name);
+            return user_id;
+        }catch (Exception e){
+            throw new Exception("findIdByName error!");
+        }
+    }
+
     //更新用户信息
     @RequestMapping(value = "/user", method = RequestMethod.PUT, produces = "text/html;charset=UTF-8")
     @ResponseBody

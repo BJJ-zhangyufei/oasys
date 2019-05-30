@@ -26,6 +26,8 @@ public interface userService {
 
     void save(user user);
 
+    Integer findIdByName(String name);
+
     void update(user user);
 
     void deleteById(Integer Id);

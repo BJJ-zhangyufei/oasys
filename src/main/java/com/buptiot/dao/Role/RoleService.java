@@ -32,6 +32,8 @@ public interface RoleService {
 
     void saveRoleUserRelation(Integer role_id,Integer user_id);
 
+    void saveUserToRole(Integer user_id);
+
     void deleteRoleUserRelation(Integer role_id,Integer user_id);
 
     void deleteRoleUserRelationByUserId(Integer user_id);

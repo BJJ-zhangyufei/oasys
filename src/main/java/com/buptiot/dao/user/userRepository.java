@@ -29,9 +29,12 @@ public interface userRepository {
     @Select("select count(*) from user where name = #{name}")
     Integer findCountByName(String name);
 
-    @Insert("insert into user (name,email) values (#{name},#{email})")
+    @Insert("insert into user (name,email,tenant_id) values (#{name},#{email},73)")
     @Options(useGeneratedKeys = true, keyProperty = "Id")
     void save(user user);
+
+    @Select("select id as id  from user where name = #{name}")
+    Integer findIdByName(String name);
 
     @Update("update user set name = #{name},email = #{email} where id=#{id}")
     void update(user user);

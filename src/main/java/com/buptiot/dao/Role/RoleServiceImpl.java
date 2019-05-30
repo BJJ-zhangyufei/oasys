@@ -93,6 +93,15 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
+    public void saveUserToRole(Integer user_id) {
+        if(user_id != null && user_id > DEFAULT_ROLES_NUM) {
+            roleRepository.saveUserToRole(user_id);
+        }else {
+            throw new DataValidationException("You can't assign a default role to user!");
+        }
+    }
+
+    @Override
     public void deleteRoleUserRelation(Integer role_id, Integer user_id) {
         if(role_id != null && role_id > DEFAULT_ROLES_NUM) {
             roleRepository.deleteRoleUserRelation(role_id,user_id);
