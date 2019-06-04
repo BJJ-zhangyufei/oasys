@@ -11,7 +11,6 @@ import java.util.Set;
  */
 public interface RoleService {
 
-
     List<Role> findAllRoles();
 
     List<Role> findAllRolesByUserId(int user_id);
@@ -21,6 +20,8 @@ public interface RoleService {
     List<Role> findNotOwnedExtraRolesByUserId(int user_id);
 
     Set<String> findRolesNameByUserId(int user_id);
+
+    Set<String> findDescriptionByUserId(int user_id);
 
     Integer saveRole(Role role);
 

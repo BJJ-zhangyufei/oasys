@@ -50,6 +50,11 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
+    public Set<String> findDescriptionByUserId(int user_id) {
+        return roleRepository.findDescriptionByUserId(user_id);
+    }
+
+    @Override
     public Integer saveRole(Role role) {
         return roleRepository.saveRole(role);
     }

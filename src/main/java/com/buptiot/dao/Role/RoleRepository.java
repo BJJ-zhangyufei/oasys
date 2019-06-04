@@ -31,6 +31,9 @@ public interface RoleRepository {
     @Select("select name as name from role where id in (select role_id from role_user_relation where user_id = #{user_id})")
     Set<String> findRolesNameByUserId(int user_id);
 
+    @Select("select description as description from role where id in (select role_id from role_user_relation where user_id = #{user_id})")
+    Set<String> findDescriptionByUserId(int user_id);
+
     @Select("select  id  as id,name as name,description as description from role where id=#{id}")
     Role findById(Integer id);
 
