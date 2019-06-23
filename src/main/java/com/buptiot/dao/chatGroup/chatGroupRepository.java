@@ -14,7 +14,7 @@ public interface chatGroupRepository {
     @Select("select chatGroupId as chatGroupId,chatGroupName as chatGroupName,chatGroupInfo as chatGroupInfo from chatGroup where Id>0 limit #{index},#{pageSize}")
     List<chatGroup> findAllByPage(@Param("index") Integer index, @Param("pageSize") Integer pageSize);
 
-    @Select("select chatGroupId as chatGroupId,chatGroupName as chatGroupName,chatGroupInfo as chatGroupInfo from chatGroup  where id = #{id}")
+    @Select("select chatGroupId as chatGroupId,chatGroupName as chatGroupName,chatGroupInfo as chatGroupInfo from chatGroup  where chatGroupId = #{Id}")
     chatGroup findGroupById(Integer Id);
 
     @Select("SELECT c.chatGroupId,chatGroupName,chatGroupInfo FROM chatGroup c,group_user gr,user u WHERE u.id = #{id} AND u.id=gr.userId and gr.chatGroupId = c.chatGroupId;")
@@ -33,7 +33,7 @@ public interface chatGroupRepository {
     @Update("update chatGroup set chatGroupName = #{chatGroupName},chatGroupInfo = #{chatGroupInfo} where chatGroupId=#{chatGroupId}")
     void update(chatGroup chatGroup);
 
-    @Delete("delete from chatGroup where chatGroupId=#{chatGroupId}")
+    @Delete("delete from chatGroup where chatGroupId=#{id}")
     void deleteById(Integer id);
 
 

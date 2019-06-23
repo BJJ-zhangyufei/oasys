@@ -16,6 +16,8 @@ public interface ReservePlanService {
 
     ReservePlan findReservePlanById(Integer id);
 
+    ReservePlan findReservePlanByUserId(Integer user_id);
+
     Integer allWorkCount();
 
     void save(ReservePlan reservePlan);
@@ -28,9 +30,13 @@ public interface ReservePlanService {
 
     List<ReservePlan> findAlreadyReservePlan();
 
+    List<ReservePlan> findCantReservePlan();
+
     void agree(Integer id);
 
     void disagree(Integer id);
+
+    void nextBoss(Integer id);
 
     user findUserInfoByPlanId(Integer id);
 }

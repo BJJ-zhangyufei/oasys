@@ -37,6 +37,12 @@ public class ReservePlanServiceImpl implements ReservePlanService {
         return reservePlanRepository.findReservePlanById(id);
     }
 
+    @Override
+    public ReservePlan findReservePlanByUserId(Integer user_id) {
+        log.trace("Executing findReservePlanByUserId [{}]", user_id);
+        return reservePlanRepository.findReservePlanByUserId(user_id);
+    }
+
 
     @Override
     public Integer allWorkCount() {
@@ -77,6 +83,12 @@ public class ReservePlanServiceImpl implements ReservePlanService {
     }
 
     @Override
+    public List<ReservePlan> findCantReservePlan() {
+        log.trace("Executing findCantReservePlan [{}]");
+        return reservePlanRepository.findCantReservePlan();
+    }
+
+    @Override
     public void agree(Integer id) {
         log.trace("Executing agree [{}]");
         reservePlanRepository.agree(id);
@@ -86,6 +98,12 @@ public class ReservePlanServiceImpl implements ReservePlanService {
     public void disagree(Integer id) {
         log.trace("Executing disagree [{}]");
         reservePlanRepository.disagree(id);
+    }
+
+    @Override
+    public void nextBoss(Integer id) {
+        log.trace("Executing nextBoss [{}]");
+        reservePlanRepository.nextBoss(id);
     }
 
     @Override

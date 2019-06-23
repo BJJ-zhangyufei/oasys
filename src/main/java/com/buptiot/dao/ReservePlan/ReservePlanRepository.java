@@ -18,10 +18,13 @@ public interface ReservePlanRepository {
     @Select("select Id as Id,planName as planName,userId as userId,userName as userName,addDate as addDate,state as state from ReservePlan where id = #{id}")
     ReservePlan findReservePlanById(Integer id);
 
+    @Select("select Id as Id,planName as planName,userId as userId,userName as userName,addDate as addDate,state as state from ReservePlan where userId = #{user_id}")
+    ReservePlan findReservePlanByUserId(Integer user_id);
+
     @Select("select count(*) from ReservePlan")
     Integer AllWorkCount();
 
-    @Insert("insert into ReservePlan(id,planName,userId,userName,addDate,state) values (#{id},#{planName},#{userId},#{userName},#{addDate},#{state})")
+    @Insert("insert into ReservePlan(id,planName,userId,userName,addDate,state) values (#{id},#{planName},#{userId},#{userName},#{addDate},0)")
     @Options(useGeneratedKeys = true, keyProperty = "id")
     void save(ReservePlan reservePlan);
 
@@ -37,12 +40,18 @@ public interface ReservePlanRepository {
     @Select("select Id as Id,planName as planName,userId as userId,userName as userName,addDate as addDate,state as state from ReservePlan  where state = 1 or state = 2")
     List<ReservePlan> findAlready();
 
+    @Select("select Id as Id,planName as planName,userId as userId,userName as userName,addDate as addDate,state as state from ReservePlan  where state = 3")
+    List<ReservePlan> findCantReservePlan();
+
     @Update("update ReservePlan set state = 1 where Id=#{id}")
     void agree(Integer id);
 
     @Update("update ReservePlan set state = 2 where Id=#{id}")
     void disagree(Integer id);
 
-    @Select("SELECT u.id,u.name,u.email FROM user u,ReservePlan r,plan_user pr WHERE r.id = #{id} AND  r.id = pr.planId AND pr.userId = u.Id;")
+    @Update("update ReservePlan set state = 3 where Id=#{id}")
+    void nextBoss(Integer id);
+
+    @Select("SELECT u.id,u.name,u.email FROM user u,ReservePlan r,plan_user pr WHERE r.id = #{id} AND  r.id = pr.planId AND pr.userId = u.id;")
     user findUserInfoByPlanId(Integer id);
 }

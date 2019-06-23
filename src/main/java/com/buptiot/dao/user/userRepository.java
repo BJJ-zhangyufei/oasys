@@ -11,7 +11,7 @@ import java.util.List;
 @Mapper
 public interface userRepository {
 
-    @Select("select id as id,name as name,email as email from user where tenant_id = 73 and id!=209 and id != 210 and id != 211 and id != 212 and id != 213 order by id asc limit #{index},#{pageSize}")
+    @Select("select id as id,name as name,email as email from user where tenant_id = 3  order by id asc limit #{index},#{pageSize}")
     List<user> findAllByPage(@Param("index") Integer index, @Param("pageSize") Integer pageSize);
 
     @Select("select id as id,name as name,email as email from user where name = #{name} limit #{index},#{pageSize}")
@@ -23,13 +23,13 @@ public interface userRepository {
     @Select("SELECT userId,name,email FROM user u,group_user gr,chatGroup c  WHERE c.chatGroupId = #{chatGroupId} AND c.chatGroupId=gr.chatGroupId AND gr.userId=u.id;;")
     List<user> findUserByChatGroupId(Integer ChatGroupId);
 
-    @Select("select count(*) from user where tenant_id = 73 and id!=209 and id != 210 and id != 211 and id != 212 and id != 213 ")
+    @Select("select count(*) from user where tenant_id = 3 ")
     Integer AllWorkCount();
 
     @Select("select count(*) from user where name = #{name}")
     Integer findCountByName(String name);
 
-    @Insert("insert into user (name,email,tenant_id) values (#{name},#{email},73)")
+    @Insert("insert into user (name,email,tenant_id) values (#{name},#{email},3)")
     @Options(useGeneratedKeys = true, keyProperty = "Id")
     void save(user user);
 
@@ -43,10 +43,10 @@ public interface userRepository {
     void deleteById(Integer id);
 
 
-    @Select("select id as id,name as name,email as email from user  where tenant_id = 73 and id!=209 and id != 210 and id != 211 and id != 212 and id != 213 and id != #{id}")
+    @Select("select id as id,name as name,email as email from user  where tenant_id = 3  id != #{id}")
     List<user> findAll(Integer Id);
 
-    @Select("select id as id,name as name,email as email from user  where tenant_id = 73 and id!=209 and id != 210 and id != 211 and id != 212 and id != 213 order by id asc")
+    @Select("select id as id,name as name,email as email from user  where tenant_id = 3  order by id asc")
     List<user> findAllUsers();
 
 }

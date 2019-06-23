@@ -1,5 +1,6 @@
 package com.buptiot.controller;
 
+import com.buptiot.annotation.Auth;
 import com.buptiot.dao.ReservePlan.ReservePlanService;
 import com.buptiot.pojo.ReservePlan;
 import com.google.gson.JsonObject;
@@ -51,6 +52,18 @@ public class ReservePlanController {
             return reservePlanService.findReservePlanById(Id).toString();
         }catch (Exception e){
             throw new Exception("getReservePlanById error!");
+        }
+    }
+
+    //根据user_id获取预案信息
+    //@Auth(roles = {"RepairMan","PipeRepairMan"})
+    @RequestMapping(value = "/reservePlanByUserId", method = RequestMethod.GET)
+    @ResponseBody
+    public String getReservePlanByUserId(@RequestParam (name = "user_id")Integer user_id) throws Exception{
+        try {
+            return reservePlanService.findReservePlanByUserId(user_id).toString();
+        }catch (Exception e){
+            throw new Exception("getReservePlanByUserId error!");
         }
     }
 
@@ -131,7 +144,7 @@ public class ReservePlanController {
     }
 
 
-    //获取所有的审批的预案信息
+    //获取所有的已审批的预案信息
     @RequestMapping(value = "/alreadyReservePlan", method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
     @ResponseBody
     public String getAlreadyReservePlan() throws Exception{
@@ -139,6 +152,17 @@ public class ReservePlanController {
             return reservePlanService.findAlreadyReservePlan().toString();
         }catch (Exception e){
             throw new Exception("getReservePlanCount error!");
+        }
+    }
+
+    //获取所有的下级无权限审批的预案信息
+    @RequestMapping(value = "/cantReservePlan", method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
+    @ResponseBody
+    public String findCantReservePlan() throws Exception{
+        try {
+            return reservePlanService.findCantReservePlan().toString();
+        }catch (Exception e){
+            throw new Exception("findCantReservePlan error!");
         }
     }
 
@@ -165,6 +189,18 @@ public class ReservePlanController {
             // return reservePlan.toString();
         } catch (Exception e) {
             throw new Exception("agreeReservePlan error!");
+        }
+    }
+
+    //交给上级审批
+    @RequestMapping(value = "/nextBoss", params = {"id"},method = RequestMethod.PUT)
+    @ResponseStatus(value = HttpStatus.OK)
+    public void nextBoss(@RequestParam Integer id) throws Exception{
+        try {
+            reservePlanService.nextBoss(id);
+            // return reservePlan.toString();
+        } catch (Exception e) {
+            throw new Exception("nextBoss error!");
         }
     }
 

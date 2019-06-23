@@ -20,8 +20,9 @@ public class ConfigAdapter extends WebMvcConfigurerAdapter {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new LoginInterceptor())
-                .addPathPatterns("/api/v1/user/role")  //需要拦截的请求
-                .excludePathPatterns("/test");  //不拦截的请求
-        //registry.addInterceptor(new LoginInterceptor()).addPathPatterns("/test");
+                .addPathPatterns("/api/v1/user/role") //需要拦截的请求
+                .excludePathPatterns("/api/v1/user/reservePlanById");  //不拦截的请求
+//        registry.addInterceptor(new LoginInterceptor())
+//                .addPathPatterns("/api/v1/user/reservePlanById");
     }
 }

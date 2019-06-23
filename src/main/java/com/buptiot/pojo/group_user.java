@@ -5,16 +5,16 @@ package com.buptiot.pojo;
  */
 public class group_user {
 
-    private Integer groupId;
+    private Integer chatGroupId;
     private Integer userId;
 
 
     public Integer getGroupId() {
-        return groupId;
+        return chatGroupId;
     }
 
-    public void setGroupId(Integer groupId) {
-        this.groupId = groupId;
+    public void setGroupId(Integer chatGroupId) {
+        this.chatGroupId = chatGroupId;
     }
 
     public Integer getUserId() {
@@ -28,8 +28,8 @@ public class group_user {
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("{");
-        sb.append("\"groupId\":")
-                .append(groupId);
+        sb.append("\"chatGroupId\":")
+                .append(chatGroupId);
         sb.append(",\"userId\":\"")
                 .append(userId);
         sb.append('}');
