@@ -34,6 +34,7 @@ public class RoleController {
     }
 
     //根据用户id获取信息
+    @Auth(roles = {"BranchDispatcher","BranchMonitor"})
     @RequestMapping(value = "/allRolesByUserId",params = {"user_id"}, method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
     @ResponseBody
     public String findAllRolesByUserId(@RequestParam Integer user_id) throws Exception{
@@ -46,6 +47,7 @@ public class RoleController {
 
 
     //通过Id删除信息
+    @Auth(roles = {"BranchDispatcher"})
     @RequestMapping(value = "/deleteRoleById",params = {"id"},method = RequestMethod.DELETE)
     @ResponseStatus(value = HttpStatus.OK)
     public void deleteRoleById(@RequestParam Integer id){
@@ -57,6 +59,7 @@ public class RoleController {
     }
 
     //根据角色id获取信息
+    @Auth(roles = {"BranchDispatcher","BranchMonitor"})
     @RequestMapping(value = "/findRoleById",params = {"id"}, method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
     @ResponseBody
     public String findRoleById(@RequestParam Integer id) throws Exception{
@@ -68,6 +71,7 @@ public class RoleController {
     }
 
     //为一个user分配role
+    @Auth(roles = {"BranchDispatcher"})
     @RequestMapping(value = "/role/user", params = { "user_id"},method = RequestMethod.POST)
     public void saveUserToRole(@RequestParam Integer user_id) throws IOTException {
         roleService.saveUserToRole(user_id);
@@ -97,6 +101,7 @@ public class RoleController {
 //    }
 
     //根据权限id获取角色信息
+    @Auth(roles = {"BranchDispatcher"})
     @RequestMapping(value = "/findRoleByPermissionId",params = {"permission_id"}, method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
     @ResponseBody
     public String findRoleByPermissionId(@RequestParam Integer permission_id) throws Exception{

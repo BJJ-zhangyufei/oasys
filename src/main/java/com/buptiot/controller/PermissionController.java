@@ -1,5 +1,6 @@
 package com.buptiot.controller;
 
+import com.buptiot.annotation.Auth;
 import com.buptiot.dao.Permission.PermissionService;
 import com.buptiot.dao.Role.RoleService;
 import com.buptiot.exception.IOTException;
@@ -24,6 +25,7 @@ public class PermissionController extends BaseController{
     private RoleService roleService;
 
     //为一个role增加permission
+    @Auth(roles = {"BranchDispatcher"})
     @RequestMapping(value = "/permission", params = { "role_id"},method = RequestMethod.POST)
     public void saveRolePermissionRelation(@RequestParam int role_id,
                                            @RequestBody String permission_ids) throws IOTException {
@@ -37,6 +39,7 @@ public class PermissionController extends BaseController{
     }
 
     //删除一个role下的permission
+    @Auth(roles = {"BranchDispatcher"})
     @RequestMapping(value = "/permission",params = {  "role_id"  }, method = RequestMethod.DELETE)
     public void deleteRolePermissionRelation(@RequestParam int role_id,
                                              @RequestBody String permission_ids) throws IOTException {
@@ -49,6 +52,7 @@ public class PermissionController extends BaseController{
     }
 
     //根据ID获取role
+    @Auth(roles = {"BranchDispatcher","BranchMonitor","RepairMan"})
     @RequestMapping(value = "/role",params = {  "role_id"  }, method = RequestMethod.GET,produces = "text/html;charset=UTF-8")
     public String getRole(@RequestParam int role_id) throws IOTException {
         return roleService.findRoleById(role_id).toString();
@@ -61,6 +65,7 @@ public class PermissionController extends BaseController{
     }
 
     //创建一个role
+    @Auth(roles = {"BranchDispatcher"})
     @RequestMapping(value = "/role", method = RequestMethod.POST)
     public Role saveRole(@RequestBody String roleInfo) throws IOTException {
         Role role = JSON.parseObject(roleInfo,Role.class);
@@ -69,12 +74,14 @@ public class PermissionController extends BaseController{
     }
 
     //删除一个role
+    @Auth(roles = {"BranchDispatcher"})
     @RequestMapping(value = "/role", method = RequestMethod.DELETE)
     public void deleteRole(@RequestParam Integer roleId) throws IOTException {
         roleService.deleteRoleById(roleId);
     }
 
     //更新一个role
+    @Auth(roles = {"BranchDispatcher"})
     @RequestMapping(value = "/role", method = RequestMethod.PUT)
     public void updateRole(@RequestBody String roleInfo) throws IOTException {
         try {
@@ -86,6 +93,7 @@ public class PermissionController extends BaseController{
     }
 
     //获取所有permission
+    @Auth(roles = {"BranchDispatcher","BranchMonitor"})
     @RequestMapping(value = "/permissions",method = RequestMethod.GET,produces = "text/html;charset=UTF-8")
     @ResponseBody
     public String getAllPermissions() throws IOTException {
@@ -93,24 +101,28 @@ public class PermissionController extends BaseController{
     }
 
     //根据user_id获取拥有的权限
+    @Auth(roles = {"BranchDispatcher","BranchMonitor","Repairman"})
     @RequestMapping(value = "/findAllByUserId", params = { "user_id"}, method = RequestMethod.GET,produces = "text/html;charset=UTF-8")
     public String findAllByUserId(@RequestParam Integer user_id) throws IOTException {
         return permissionService.findAllByUserId(user_id).toString();
     }
 
     //根据role_id获取权限id
+    @Auth(roles = {"BranchDispatcher","BranchMonitor","Repairman"})
     @RequestMapping(value = "/findPermissionIdsByRoleId", params = { "role_id"}, method = RequestMethod.GET,produces = "text/html;charset=UTF-8")
     public String findPermissionIdsByRoleId(@RequestParam Integer role_id) throws IOTException {
         return permissionService.findPermissionIdsByRoleId(role_id).toString();
     }
 
     //根据role_id获取权限名称
+    @Auth(roles = {"BranchDispatcher","BranchMonitor","Repairman"})
     @RequestMapping(value = "/findPermissionNamesByRoleId", params = { "role_id"}, method = RequestMethod.GET,produces = "text/html;charset=UTF-8")
     public String findPermissionNamesByRoleId(@RequestParam Integer role_id) throws IOTException {
         return permissionService.findPermissionNamesByRoleId(role_id).toString();
     }
 
     //获取一个role下分配的permission
+    @Auth(roles = {"BranchDispatcher","BranchMonitor","Repairman"})
     @RequestMapping(value = "/rolePermission", params = {  "role_id"  },method = RequestMethod.GET,produces = "text/html;charset=UTF-8")
     @ResponseBody
     public String getPermissionsByRoleId(@RequestParam int role_id) throws IOTException {
@@ -118,6 +130,7 @@ public class PermissionController extends BaseController{
     }
 
     //获取一个role下还未分配的permission
+    @Auth(roles = {"BranchDispatcher","BranchMonitor","Repairman"})
     @RequestMapping(value = "/roleNotOwnedPermission", params = {  "role_id"  },method = RequestMethod.GET,produces = "text/html;charset=UTF-8")
     @ResponseBody
     public String getNotOwnedPermissionsByRoleId(@RequestParam int role_id) throws IOTException {
@@ -125,6 +138,7 @@ public class PermissionController extends BaseController{
     }
 
     //为一个user分配role
+    @Auth(roles = {"BranchDispatcher"})
     @RequestMapping(value = "/user/role", params = { "role_id","user_id"},method = RequestMethod.POST)
     public void saveRoleUserRelation(@RequestParam Integer role_id,
                                      @RequestParam Integer user_id) throws IOTException {
@@ -132,6 +146,7 @@ public class PermissionController extends BaseController{
     }
 
     //为一个user删除role
+    @Auth(roles = {"BranchDispatcher"})
     @RequestMapping(value = "/user/role", params = { "role_id","user_id"},method = RequestMethod.DELETE)
     public void deleteRoleUserRelation(@RequestParam Integer role_id,
                                        @RequestParam Integer user_id) throws IOTException {
@@ -139,36 +154,42 @@ public class PermissionController extends BaseController{
     }
 
     //通过user_id删除role
+    @Auth(roles = {"BranchDispatcher"})
     @RequestMapping(value = "/user/deleteRoleByUserId", params = { "user_id"},method = RequestMethod.DELETE)
     public void deleteRoleUserRelationByUserId(@RequestParam Integer user_id) throws IOTException {
         roleService.deleteRoleUserRelationByUserId(user_id);
     }
 
     //获取一个用户下的所有extra role
+    @Auth(roles = {"BranchDispatcher"})
     @RequestMapping(value = "/roles", params = { "user_id"}, method = RequestMethod.GET,produces = "text/html;charset=UTF-8")
     public String getUserExtraRoles(@RequestParam Integer user_id) throws IOTException {
         return roleService.findExtraRolesByUserId(user_id).toString();
     }
 
     //获取一个用户下的所有未拥有的extra role
+    @Auth(roles = {"BranchDispatcher"})
     @RequestMapping(value = "/notOwnedRoles", params = { "user_id"}, method = RequestMethod.GET,produces = "text/html;charset=UTF-8")
     public String getUserNotOwnedExtraRoles(@RequestParam Integer user_id) throws IOTException {
         return roleService.findNotOwnedExtraRolesByUserId(user_id).toString();
     }
 
     //获取一个用户下的所有role
+    @Auth(roles = {"BranchDispatcher"})
     @RequestMapping(value = "/UserRoles", params = { "user_id"}, method = RequestMethod.GET,produces = "text/html;charset=UTF-8")
     public String getUserRoles(@RequestParam Integer user_id) throws IOTException {
         return roleService.findAllRolesByUserId(user_id).toString();
     }
 
     //根据用户user_id获取角色名称
+    @Auth(roles = {"BranchDispatcher","BranchMonitor","Repairman"})
     @RequestMapping(value = "/findRolesNameByUserId", params = { "user_id"}, method = RequestMethod.GET,produces = "text/html;charset=UTF-8")
     public String findRolesNameByUserId(@RequestParam Integer user_id) throws IOTException {
         return roleService.findRolesNameByUserId(user_id).toString();
     }
 
     //根据权限id获取角色信息
+    @Auth(roles = {"BranchDispatcher","BranchMonitor","Repairman"})
     @RequestMapping(value = "/role/findRoleByPermissionId",params = {"permission_id"}, method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
     @ResponseBody
     public String findRoleByPermissionId(@RequestParam Integer permission_id) throws Exception{

@@ -21,6 +21,7 @@ public class ReservePlanController {
     ReservePlanService reservePlanService;
 
     //配合分页设置，获取所有的预案信息
+    @Auth(roles = {"BranchDispatcher","BranchMonitor"})
     @RequestMapping(value = "/reservePlanByPage", params = {  "limit","page"  }, method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
     @ResponseBody
     public String getReservePlanByPage(@RequestParam int limit,
@@ -33,6 +34,7 @@ public class ReservePlanController {
     }
 
     //获取所有的预案的页数
+    @Auth(roles = {"BranchDispatcher","BranchMonitor"})
     @RequestMapping(value = "/reservePlanPages", params = {  "limit"  }, method = RequestMethod.GET)
     @ResponseBody
     public Integer getReservePlanPages(@RequestParam int limit) throws Exception {
@@ -45,6 +47,7 @@ public class ReservePlanController {
 
 
     //根据预案id获取预案信息
+    @Auth(roles = {"BranchDispatcher","BranchMonitor"})
     @RequestMapping(value = "/reservePlanById",params = {"Id"}, method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
     @ResponseBody
     public String getReservePlanById(@RequestParam Integer Id) throws Exception{
@@ -69,6 +72,7 @@ public class ReservePlanController {
 
 
     //统计有多少预案
+    @Auth(roles = {"BranchDispatcher","BranchMonitor"})
     @RequestMapping(value = "/reservePlanCount", method = RequestMethod.GET)
     @ResponseBody
     public Integer getReservePlanCount() throws Exception{
@@ -81,6 +85,7 @@ public class ReservePlanController {
     }
 
     //增加预案的信息
+    @Auth(roles = {"BranchDispatcher","BranchMonitor","RepairMan"})
     @RequestMapping(value = "/reservePlan", method = RequestMethod.POST, produces = "text/html;charset=UTF-8")
     @ResponseBody
     public String createReservePlan(@RequestBody String planInfo) throws Exception{
@@ -95,6 +100,7 @@ public class ReservePlanController {
     }
 
     //更新预案信息
+    @Auth(roles = {"BranchDispatcher","BranchMonitor"})
     @RequestMapping(value = "/reservePlan", method = RequestMethod.PUT, produces = "text/html;charset=UTF-8")
     @ResponseBody
     public String updateReservePlan(@RequestBody String planInfo) throws Exception{
@@ -121,6 +127,7 @@ public class ReservePlanController {
     }
 
     //通过Id删除信息
+    @Auth(roles = {"BranchDispatcher"})
     @RequestMapping(value = "/reservePlanById",params = {"id"},method = RequestMethod.DELETE)
     @ResponseStatus(value = HttpStatus.OK)
     public void deleteReservePlanById(@RequestParam Integer id){
@@ -133,6 +140,7 @@ public class ReservePlanController {
 
 
     //获取所有的未审批的预案信息
+    @Auth(roles = {"BranchDispatcher","BranchMonitor"})
     @RequestMapping(value = "/noReservePlan", method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
     @ResponseBody
     public String getNoReservePlan() throws Exception{
@@ -145,6 +153,7 @@ public class ReservePlanController {
 
 
     //获取所有的已审批的预案信息
+    @Auth(roles = {"BranchDispatcher","BranchMonitor","RepairMan"})
     @RequestMapping(value = "/alreadyReservePlan", method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
     @ResponseBody
     public String getAlreadyReservePlan() throws Exception{
@@ -156,6 +165,7 @@ public class ReservePlanController {
     }
 
     //获取所有的下级无权限审批的预案信息
+    @Auth(roles = {"BranchDispatcher","BranchMonitor"})
     @RequestMapping(value = "/cantReservePlan", method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
     @ResponseBody
     public String findCantReservePlan() throws Exception{
@@ -168,6 +178,7 @@ public class ReservePlanController {
 
 
     //审批通过
+    @Auth(roles = {"BranchDispatcher","BranchMonitor"})
     @RequestMapping(value = "/agreeReservePlan", params = {"id"},method = RequestMethod.PUT)
     @ResponseStatus(value = HttpStatus.OK)
     public void agreeReservePlan(@RequestParam Integer id) throws Exception{
@@ -181,6 +192,7 @@ public class ReservePlanController {
 
 
     //审批不通过
+    @Auth(roles = {"BranchDispatcher","BranchMonitor"})
     @RequestMapping(value = "/disagreeReservePlan", params = {"id"},method = RequestMethod.PUT)
     @ResponseStatus(value = HttpStatus.OK)
     public void disagreeReservePlan(@RequestParam Integer id) throws Exception{
@@ -193,6 +205,7 @@ public class ReservePlanController {
     }
 
     //交给上级审批
+    @Auth(roles = {"RepairMan"})
     @RequestMapping(value = "/nextBoss", params = {"id"},method = RequestMethod.PUT)
     @ResponseStatus(value = HttpStatus.OK)
     public void nextBoss(@RequestParam Integer id) throws Exception{
@@ -205,6 +218,7 @@ public class ReservePlanController {
     }
 
     //根据预案id获取用户信息
+    @Auth(roles = {"BranchDispatcher","BranchMonitor"})
     @RequestMapping(value = "/userInfoByPlanId",params = {"id"}, method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
     @ResponseBody
     public String getUserInfoByPlanId(@RequestParam Integer id) throws Exception{

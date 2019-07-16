@@ -1,5 +1,6 @@
 package com.buptiot.controller;
 
+import com.buptiot.annotation.Auth;
 import com.buptiot.dao.PlanAudit.PlanAuditService;
 import com.buptiot.pojo.PlanAudit;
 import com.google.gson.JsonObject;
@@ -20,6 +21,7 @@ public class PlanAuditController {
     PlanAuditService planAuditService;
 
     //配合分页设置，获取所有的审批信息
+    @Auth(roles = {"BranchDispatcher","BranchMonitor"})
     @RequestMapping(value = "/planAuditByPage", params = {  "limit","page"  }, method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
     @ResponseBody
     public String getPlanAuditByPage(@RequestParam int limit,
@@ -32,6 +34,7 @@ public class PlanAuditController {
     }
 
     //获取所有的审批的页数
+    @Auth(roles = {"BranchDispatcher","BranchMonitor"})
     @RequestMapping(value = "/planAuditPages", params = {  "limit"  }, method = RequestMethod.GET)
     @ResponseBody
     public Integer getPlanAuditPages(@RequestParam int limit) throws Exception {
@@ -44,6 +47,7 @@ public class PlanAuditController {
 
 
     //根据id获取审批信息
+    @Auth(roles = {"BranchDispatcher","BranchMonitor"})
     @RequestMapping(value = "/planAuditById",params = {"id"}, method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
     @ResponseBody
     public String getPlanAuditById(@RequestParam Integer id) throws Exception{
@@ -56,6 +60,7 @@ public class PlanAuditController {
 
 
     //统计有多少审批信息
+    @Auth(roles = {"BranchDispatcher","BranchMonitor"})
     @RequestMapping(value = "/planAuditCount", method = RequestMethod.GET)
     @ResponseBody
     public Integer getPlanAuditCount() throws Exception{
@@ -68,6 +73,7 @@ public class PlanAuditController {
     }
 
     //增加审批信息
+    @Auth(roles = {"BranchDispatcher","BranchMonitor","RepairMan"})
     @RequestMapping(value = "/planAudit", method = RequestMethod.POST, produces = "text/html;charset=UTF-8")
     @ResponseBody
     public String createPlanAudit(@RequestBody String planInfo) throws Exception{
@@ -82,6 +88,7 @@ public class PlanAuditController {
     }
 
     //更新审批信息
+    @Auth(roles = {"BranchDispatcher","BranchMonitor"})
     @RequestMapping(value = "/planAudit", method = RequestMethod.PUT, produces = "text/html;charset=UTF-8")
     @ResponseBody
     public String updatePlanAudit(@RequestBody String planInfo) throws Exception{
@@ -107,6 +114,7 @@ public class PlanAuditController {
     }
 
     //通过Id删除信息
+    @Auth(roles = {"BranchDispatcher"})
     @RequestMapping(value = "/planAuditById",params = {"id"},method = RequestMethod.DELETE)
     @ResponseStatus(value = HttpStatus.OK)
     public void deletePlanAuditById(@RequestParam Integer id){
@@ -119,6 +127,7 @@ public class PlanAuditController {
 
 
     //获取所有的审批信息
+    @Auth(roles = {"BranchDispatcher","BranchMonitor"})
     @RequestMapping(value = "/planAudit", method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
     @ResponseBody
     public String getAllPlanAudit() throws Exception{

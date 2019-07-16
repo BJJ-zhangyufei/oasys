@@ -32,13 +32,13 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-
-        System.out.println("preHandle");
-        if (!handler.getClass().isAssignableFrom(HandlerMethod.class)) {
-            System.out.println("cat cast handler to HandlerMethod.class");
-            return true;
-        }
-        // 获取注解
+        //
+        //        System.out.println("preHandle");
+        //        if (!handler.getClass().isAssignableFrom(HandlerMethod.class)) {
+        //            System.out.println("cat cast handler to HandlerMethod.class");
+        //            return true;
+        //        }
+        //        // 获取注解
         Auth auth = ((HandlerMethod) handler).getMethod().getAnnotation(Auth.class);
         if (auth == null) {
             System.out.println("cant find @Auth in this uri:" + request.getRequestURI());

@@ -1,5 +1,6 @@
 package com.buptiot.controller;
 
+import com.buptiot.annotation.Auth;
 import com.buptiot.dao.user.userService;
 import com.buptiot.pojo.user;
 import com.google.gson.JsonObject;
@@ -20,6 +21,7 @@ public class UserController {
     userService userService;
 
     //分页接口配置，有筛选参数返回筛选参数的，没有则显示全部
+    @Auth(roles = {"BranchDispatcher","BranchMonitor"})
     @RequestMapping(value = "/userByPage", method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
     @ResponseBody
     public String getUserByPage(@RequestParam (name="limit") int limit,
@@ -46,6 +48,7 @@ public class UserController {
     }
 
     //获取所有的用户的页数
+    @Auth(roles = {"BranchDispatcher","BranchMonitor"})
     @RequestMapping(value = "/userPages", params = {  "limit"  }, method = RequestMethod.GET)
     @ResponseBody
     public Integer getUserPages(@RequestParam int limit) throws Exception {
@@ -58,6 +61,7 @@ public class UserController {
 
 
     //根据用户id获取用户信息
+    @Auth(roles = {"BranchDispatcher","BranchMonitor"})
     @RequestMapping(value = "/userById",params = {"Id"}, method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
     @ResponseBody
     public String getUserById(@RequestParam Integer Id) throws Exception{
@@ -70,6 +74,7 @@ public class UserController {
 
 
     //根据群组id获取用户信息
+    @Auth(roles = {"BranchDispatcher","BranchMonitor"})
     @RequestMapping(value = "/userByGroupId",params = {"chatGroupId"}, method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
     @ResponseBody
     public String getUserByGroupId(@RequestParam Integer chatGroupId) throws Exception{
@@ -83,6 +88,7 @@ public class UserController {
 
 
     //统计有多少用户
+    @Auth(roles = {"BranchDispatcher","BranchMonitor"})
     @RequestMapping(value = "/userCount", method = RequestMethod.GET)
     @ResponseBody
     public Integer getUserCount() throws Exception{
@@ -95,6 +101,7 @@ public class UserController {
     }
 
     //增加用户的信息
+    @Auth(roles = {"BranchDispatcher","BranchMonitor"})
     @RequestMapping(value = "/user", method = RequestMethod.POST, produces = "text/html;charset=UTF-8")
     @ResponseBody
     public String createUser(@RequestBody String userInformation) throws Exception{
@@ -109,6 +116,7 @@ public class UserController {
     }
 
     //根据用户id获取用户信息
+    @Auth(roles = {"BranchDispatcher","BranchMonitor"})
     @RequestMapping(value = "/idByName", method = RequestMethod.GET)
     @ResponseBody
     public Integer findIdByName(@RequestParam (name="name") String name) throws Exception{
@@ -121,6 +129,7 @@ public class UserController {
     }
 
     //更新用户信息
+    @Auth(roles = {"BranchDispatcher","BranchMonitor"})
     @RequestMapping(value = "/user", method = RequestMethod.PUT, produces = "text/html;charset=UTF-8")
     @ResponseBody
     public String updateUser(@RequestBody String userInformation) throws Exception{
@@ -144,6 +153,7 @@ public class UserController {
     }
 
     //通过Id删除信息
+    @Auth(roles = {"BranchDispatcher"})
     @RequestMapping(value = "/userById",params = {"Id"},method = RequestMethod.DELETE)
     @ResponseStatus(value = HttpStatus.OK)
     public void deleteUserInfoById(@RequestParam Integer Id){
@@ -156,6 +166,7 @@ public class UserController {
 
 
     //获取所有的用户信息（不包括当前登录用户）
+    @Auth(roles = {"BranchDispatcher","BranchMonitor"})
     @RequestMapping(value = "/user",params = {"Id"}, method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
     @ResponseBody
     public String getAllUser(@RequestParam Integer Id) throws Exception{
@@ -167,6 +178,7 @@ public class UserController {
     }
 
     //获取所有的用户信息（包括当前登录用户）
+    @Auth(roles = {"BranchDispatcher","BranchMonitor"})
     @RequestMapping(value = "/allUsers", method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
     @ResponseBody
     public String getAllUser() throws Exception{
